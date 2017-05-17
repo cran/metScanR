@@ -2,99 +2,68 @@
 % Please edit documentation in R/siteFinder.R
 \name{siteFinder}
 \alias{siteFinder}
-\title{siteFinder}
+\title{Filter environmental monitoring stations (wrapper)}
 \usage{
-siteFinder(NEON.site = NULL, Lat = NULL, Lon = NULL, radius = 150,
-  networks = "all", startDate = NULL, endDate = NULL, vars = "all",
-  elevThresh = NULL)
+siteFinder(country = NULL, siteID = NULL, lat = 39.833333,
+  lon = -98.583333, radius = 50, network = NULL, vars = "temperature",
+  id = NULL, startDate = NULL, endDate = "2006-01-27",
+  includeUnk = TRUE, elevThresh = NULL, ...)
 }
 \arguments{
-\item{NEON.site}{Mandatory if \code{Lat} and \code{Lon} are NULL; An object of class character containing a 4-letter NEON site Identifier. The lat/lon pair of the NEON.site will be used as your point of interest (POI).}
+\item{country}{(character) Country(ies)/territory(ies) to filter environmental stations. Defaults to NULL (entire database will be returned).}
 
-\item{Lat}{Mandatory if \code{NEON.site} is NULL; An object of numeric containing the latitude of your POI.}
+\item{siteID}{(character) "idType:id" NULL if iniltializing \code{lat} & \code{lon}. Required if \code{lat} & \code{lon} are set to NULL.}
 
-\item{Lon}{Mandatory if \code{NEON.site} is NULL; An object of numeric containing the longitude of your POI.}
+\item{lat}{(numeric) Latitude of Point of interest (POI). Defaults to 40.0149, i.e., latitude of Boulder, CO, USA\cr}
 
-\item{radius}{An object of class numeric in kilometers (km) which describes the radius from your point of interest that will be searched for sites. Defaults to: 100 (km)}
+\item{lon}{(numeric) Longitude of Point of interest (POI). Defaults to -105.2705, i.e., longitude of Boulder, CO, USA\cr}
 
-\item{networks}{A vector of class character containing the network names; Defaults to 'all' networks.  Current networks are:\cr
-\cr
-COOP - Cooperative Observer Network [http://www.nws.noaa.gov/om/coop/],[http://www.nws.noaa.gov/om/coop/standard.htm]\cr
-\cr
-USCRN - United States Climate Reference Network [https://www.ncdc.noaa.gov/crn/] \cr
-\cr
-USRCRN - United States Regional Climate Reference Network; includes Southwest US regional network and Alabama regional network [https://www.ncdc.noaa.gov/crn/usrcrn/] \cr
-\cr
-ASOS - Automated Surface Observing System [https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/automated-surface-observing-system-asos]\cr
-\cr
-AWOS - Automated Weather Observing System [https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/automated-weather-observing-system-awos]\cr
-\cr
-SNOTEL - SNOw TELometry [http://www.wcc.nrcs.usda.gov/snow/]\cr
-\cr
-SCAN - Soil Climate Analysis Network [http://www.wcc.nrcs.usda.gov/scan/]\cr
-\cr
-NEON - National Ecological Observatory Network [http://www.neonscience.org/]\cr
-\cr
-Currently there are 13,368 available stations comprised within all above networks.  Some stations are part of various networks.  For instance some ASOS stations are also part of the COOP network.  We are in the process of adding more networks to the database.}
+\item{radius}{(numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km) and defaults to 50.\cr}
 
-\item{startDate}{An object of class character containing the start date: 'YYYY-mm-dd'. Defaults to NULL}
+\item{network}{(character) Network(s)/platform(s) to filter environmental monitoring stations. Defaults to NULL.  Metadata are available for stations in the networks below.  An individual station may be part of multiple networks.  See reference links for further information.\cr}
 
-\item{endDate}{An object of class character containing the end date: 'YYYY-mm-dd'. Defaults to NULL}
+\item{vars}{(character) Elements(s)/variables(s) of interest.  Defaults to NULL.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements.  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using subTerms such as 'air temperature,' or 'soil temperature,' if they wish to narrown their results.}
 
-\item{vars}{A vector of class character containing search variables. Defaults to 'all.'  The network(s) that measure the specified variable(s) will be returned. The \code{vars} were generated on a network by network basis, assuming each station within said network collects the basic suite of measurements specified by the network.  For more information regarding measurement types by network, please see the links above. Users can search for individual variables using the \code{vars} command with one or many of the following variables:\cr
-\cr
-AIR_TEMP - Air temperature \cr
-\cr
-ALT - Altimeter Setting\cr
-\cr
-DEW_TEMP - Dewpoint Temperature \cr
-\cr
-PRECIP_BULK - Bulk Precipitation \cr
-\cr
-PRECIP_TYPE - Precipitation Type \cr
-\cr
-PRES - Barometric Pressure \cr
-\cr
-RH - Relative Humidity\cr
-\cr
-SFC_TEMP - Surface Temperature \cr
-\cr
-SKY - Sky Conditions \cr
-\cr
-SNOW_DEPTH - Snow Depth\cr
-\cr
-SNOW_WC - Snow Water Content\cr
-\cr
-SOIL_MOIS - Soil Moisture\cr
-\cr
-SOIL_TEMP - Soil Temperature\cr
-\cr
-SOL_RAD - Solar Radiation\cr
-\cr
-TSTORM - Thunderstorm Detection\cr
-\cr
-VIS - Visibility\cr
-\cr
-WET - Wetness\cr
-\cr
-WIND_DIR - Wind Direction\cr
-\cr
-WIND_SPE - Wind Speed\cr}
+\item{id}{(character) identifier(s) of interest.  Defaults to NULL. Metadata are available for stations with any of the identifiers listed below. Note that a single station can have multiple, associated identifers.  See reference links for further information.\cr}
 
-\item{elevThresh}{An object of class numeric in meters (m) which defines the elevation threshold to filter resulting sites.  This threshold is relative to your POI.  For instance, if \code{elevThresh} is set to '1000', any sites with elevations less than or equal to 1000 m relative to the POI will be returned. \cr}
+\item{startDate}{(character) "YYY-MM-DD" to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is NULL.}
+
+\item{endDate}{(character) "YYY-MM-DD" to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is NULL.}
+
+\item{includeUnk}{(logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites without known start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Setting startDate=NULL, initializing endDate, and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized.}
+
+\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level.}
+
+\item{...}{Depracated terms from previous version of function.}
 }
 \value{
-object A list containing a vector comprising the latitude and longitude of center of search area, and a dataframe of environmental monitoring sites that meet the search criteria. \cr
+A list comprising metadata of environmental monitoring stations from country(ies)/territory(ies) specified in \code{country}\cr
 }
 \description{
-A search tool that finds environmental monitoring sites from various networks (US only): COOP, USCRN, USRCRN, ASOS, AWOS, SNOTEL, SCAN, and NEON.
+A wrapper function comprising all filtering functions within the metScanR package.  The metScanR database contains metadata from roughly 107,000 stations among ~200 countries/territories and ~18 networks/platforms, worldwide.   This function returns metadata for a subset of those stations, based on the criteria specified by a user.
 }
 \examples{
-siteFinder(NEON.site="HARV",startDate="1965-10-20",endDate="1986-09-02")
-siteFinder(Lat=40.05,Lon=-105.27,startDate="2000-01-05",radius=45,network="COOP")
+\dontrun{
+#Return metadata of sites within 50 km of NEON's HARV active from 1965-10-20 to 1986-09-02
+  siteFinder(siteID="NEON:HARV",startDate="1965-10-20",
+  endDate="1986-09-02",radius=50)
+
+#Return metadata of SCAN, SNTL, and ASOS sites active from at least 2000-01-05 onward
+  siteFinder(network=c("SCAN","SNTL","ASOS"),startDate="2000-01-05")
+
+#Return metadata of sites in Brazil with elevations of 1500 +/- 250 (m) Above Sea Level
+  siteFinder(elevThresh=c(1500,250),country="Brazil")}
 }
 \seealso{
-Currently none
+\link[metScanR]{getNearby}
+\link[metScanR]{getElevation}
+\link[metScanR]{getDates}
+\link[metScanR]{getNetwork}
+\link[metScanR]{getVars}
+\link[metScanR]{getCountry}
+\link[metScanR]{getId}
+\link[metScanR]{mapSiteFinder}
+\link[metScanR]{metScanR_DB}
 }
 \author{
 Josh Roberti \email{jaroberti87@gmail.com} \cr
@@ -109,5 +78,7 @@ Derek Smith
 \keyword{data,}
 \keyword{environment,}
 \keyword{environmental}
-\keyword{in-situ}
-
+\keyword{in-situ,}
+\keyword{meteorological}
+\keyword{meteorology,}
+\keyword{weather,}

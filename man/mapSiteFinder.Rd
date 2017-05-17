@@ -2,21 +2,37 @@
 % Please edit documentation in R/mapSiteFinder.R
 \name{mapSiteFinder}
 \alias{mapSiteFinder}
-\title{mapSiteFinder}
+\title{Map environmental monitoring stations}
 \usage{
 mapSiteFinder(x)
 }
 \arguments{
-\item{x}{A list output from \code{siteFinder()}}
+\item{x}{(list) Metadata of environmental monitoring stations from the metScanR package.}
 }
 \value{
-\code{} A map of resulting environmental monitoring sites found using siteFinder()
+A map of environmental monitoring stations
 }
 \description{
-A plotting tool that maps the results of \code{siteFinder()}.  This function requires internet connection!
+A plotting tool to map environmetnal monitoring stations from the metScanR database.  NOTE: This function requires internet connection!
+}
+\examples{
+\dontrun{
+#map environmental monitoring stations located in Italy
+  mapSiteFinder(getCountry(country="Italy"))
+#map environmental monitoring stations within 50 km of Boulder, CO, USA
+  mapSiteFinder(getNearby(lat=40.0149,lon=-105.2705,radius=50))}
+
 }
 \seealso{
-Currently none
+\link[metScanR]{getNearby}
+\link[metScanR]{getElevation}
+\link[metScanR]{getDates}
+\link[metScanR]{getNetwork}
+\link[metScanR]{getVars}
+\link[metScanR]{getCountry}
+\link[metScanR]{getId}
+\link[metScanR]{siteFinder}
+\link[metScanR]{metScanR_DB}
 }
 \author{
 Josh Roberti \email{jaroberti87@gmail.com} \cr
@@ -27,8 +43,13 @@ Derek Smith
 }
 \keyword{atmopsheric}
 \keyword{atmosphere,}
-\keyword{data}
+\keyword{climate,}
 \keyword{data,}
 \keyword{environment,}
 \keyword{environmental}
-
+\keyword{in-situ,}
+\keyword{mapping}
+\keyword{maps,}
+\keyword{meteorological,}
+\keyword{meteorology,}
+\keyword{weather,}
