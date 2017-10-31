@@ -4,13 +4,13 @@
 \alias{getNetwork}
 \title{Filter environmental monitoring stations by network}
 \usage{
-getNetwork(network = NULL, ...)
+getNetwork(network, ...)
 }
 \arguments{
-\item{network}{(character) Network(s)/platform(s) to filter environmental monitoring stations. Defaults to NULL (entire database will be returned).  Metadata are available for stations in the networks below.  An individual station may be part of multiple networks.  See reference links for further information.\cr
+\item{network}{(character) Network(s)/platform(s) to filter environmental monitoring stations. Metadata are available for stations in the networks below.  See reference links for further information.\cr
 \cr
 AL USRCRN: United States Regional Climate Reference Network - Alabama \cr
-\url{https://gis.ncdc.noaa.gov/geoportal/catalog/search/resource/details.page?id=gov.noaa.ncdc:C01117}\cr
+\url{https://catalog.data.gov/dataset/al-usrcrn-station-information}\cr
 \cr
 ASOS: Automated Surface Observing System \cr
 \url{https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/automated-surface-observing-system-asos}\cr
@@ -27,31 +27,19 @@ COCORAHS: Community Collaborative Rain, Hail & Snow Network \cr
 COOP: Cooperative Observer Network \cr
 \url{https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/cooperative-observer-network-coop}\cr
 \cr
-MPRC: Manual Precipitation Network\cr
-\cr
-MSNT: Non-Telemetered Snow Telemetry Network \cr
-\cr
 NEON: National Ecological Observatory Network \cr
 \url{http://www.neonscience.org/}\cr
 \cr
-OTHER: Telemetered Natural Resource Conservation Service (NRCS) Stations that do not meet criteria for SNOTEL, SNOLITE, SCAN, or NRCS Experimental hydromet\cr
+NADP: National Atmospheric Deposition Program\cr
+\url{http://nadp.sws.uiuc.edu/NADP/}\cr
 \cr
-SCAN: Soil Climate Analysis Network \cr
-\url{https://www.wcc.nrcs.usda.gov/about/mon_scan.html} \cr
-\cr
-SNOW: Snow Course and Aerial Marker Network \cr
-\url{https://www.wcc.nrcs.usda.gov/about/mon_manual.html} \cr
-\cr
-SNTL: Snow Telemetry Network \cr
-\url{https://www.wcc.nrcs.usda.gov/about/mon_automate.html}\cr
-\cr
-SNTLT: Snow Telemetry Network, Limited Sensors \cr
-\url{https://www.wcc.nrcs.usda.gov/about/mon_automate.html}\cr
+NRCS: Natural Resources Conservation Service \cr
+\url{https://www.wcc.nrcs.usda.gov/web_service/NRCS_Station_Networks.pdf}\cr
 \cr
 UKN: *unknown* (unidentifed network)\cr
 \cr
 UPPERAIR: Upper Air network \cr
-\url{http://www.ua.nws.noaa.gov/}\cr
+\url{https://www.weather.gov/upperair/nws_upper}\cr
 \cr
 USCRN: United States Climate Reference Network \cr
 \url{https://www.ncdc.noaa.gov/crn/} \cr

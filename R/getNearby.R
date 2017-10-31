@@ -3,12 +3,12 @@
 
 #' @author Josh Roberti \email{jaroberti87@@gmail.com} \cr
 
-#' @description Return metadata of environmental monitoring stations nearby a specific environmental station or near a a Latitude/Longitude pair.
+#' @description Return metadata of environmental monitoring stations nearby a specific environmental station (see \code{siteID}) or near a a Latitude/Longitude pair (see \code{lat,lon}).
 #'
-#' @param siteID (character) "idType:id" NULL if iniltializing \code{lat} & \code{lon}. Required if \code{lat} & \code{lon} are set to NULL.
-#' @param lat (numeric) Latitude of Point of interest (POI). Defaults to 40.0149, i.e., latitude of Boulder, CO, USA\cr
-#' @param lon (numeric) Longitude of POI. Defaults to -105.2705, i.e., longitude of Boulder, CO, USA\cr
-#'@param radius (numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km) and defaults to 50.\cr
+#' @param siteID (character) in the form of: [NETWORK]:[ID]. Environmental monitoring network to use as your Point of Interest (POI). Required if \code{lat} & \code{lon} are missing.
+#' @param lat (numeric) Latitude of (POI). \code{lat} and \code{lon} are required if \code{siteID} is missing.
+#' @param lon (numeric) Longitude of POI. \code{lat} and \code{lon} are required if \code{siteID} is missing.
+#'@param radius (numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km). Required\cr
 #'@param ... auto-populates when called from \code{siteFinder()} wrapper
 #'
 #' @return A list comprising metadata of environmental monitoring stations located within \code{radius} from the user-entered \code{siteID} or \code{Lat}/\code{Lon} POI.
@@ -35,27 +35,27 @@
 #       function created as standalone or for use in siteFinder()
 #   Josh Roberti (2017-05-03)
 #       Removing google API call for elevation data.  It limits daily queries
+#   Josh Roberti (2017-05-21)
+#       Removing NULL initializations, replacing with missing() internally
 ##############################################################################################
-getNearby<-function(siteID=NULL,lat=40.0149,lon=-105.2705,radius=50,...){
+getNearby<-function(siteID,lat,lon,radius,...){
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){
         metadata<-metScanR_DB
     }
-
     #IF USING LAT/LON:
-    if(is.null(siteID)){
-        if(!is.null(lat) & !is.null(lon)){
+    if(missing(siteID)){
+        if(!missing(lat) & !missing(lon)){
             #put lat/lon into df:
             site.coords<-data.frame(do.call("cbind",list(LAT=lat,LON=lon)))
         }
         #QC USER LAT/LON CHECK START
-        else{stop("please enter a valid latitude and longitude in decimal degrees format; see details: '?siteFinder' ")}
+        else{stop("please enter a valid latitude and longitude in decimal degrees format; see details: '?getNearby' ")}
         #QC USER LAT/LON CHECK END
     }
-
     #IF USING siteID
-    if(!is.null(siteID)){
+    if(!missing(siteID)){
         #idType search:
         idType.search<-gsub(":.*","",siteID)
         #id search:

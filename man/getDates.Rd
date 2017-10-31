@@ -4,14 +4,14 @@
 \alias{getDates}
 \title{Filter environmental monitoring stations by active date(s)}
 \usage{
-getDates(startDate = NULL, endDate = NULL, includeUnk = FALSE, ...)
+getDates(startDate, endDate, includeUnk = FALSE, ...)
 }
 \arguments{
-\item{startDate}{(character) "YYY-MM-DD" to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is NULL.}
+\item{startDate}{(character) "YYYY-MM-DD" used to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is missing.}
 
-\item{endDate}{(character) "YYY-MM-DD" to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is NULL.}
+\item{endDate}{(character) "YYYY-MM-DD" used to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is missing.}
 
-\item{includeUnk}{(logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites without known start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Setting startDate=NULL, initializing endDate, and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized.}
+\item{includeUnk}{(logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites with unknown start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Initializing endDate (while leaving startDate uninitialized) and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized.}
 
 \item{...}{auto-populates when called from \code{siteFinder()} wrapper}
 }

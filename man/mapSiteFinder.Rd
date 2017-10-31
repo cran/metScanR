@@ -7,13 +7,13 @@
 mapSiteFinder(x)
 }
 \arguments{
-\item{x}{(list) Metadata of environmental monitoring stations from the metScanR package.}
+\item{x}{(list) Metadata of environmental monitoring stations.}
 }
 \value{
 A map of environmental monitoring stations
 }
 \description{
-A plotting tool to map environmetnal monitoring stations from the metScanR database.  NOTE: This function requires internet connection!
+A plotting tool to map environmetnal monitoring stations from the metScanR database.  **NOTE: This function requires internet connection!**
 }
 \examples{
 \dontrun{

@@ -5,7 +5,7 @@
 
 #' @description Return metadata of environmental monitoring stations from specific country(ies)/territory(ies) within the metScanR database.
 
-#' @param country (character) Country(ies)/territory(ies) to filter environmental stations. Defaults to NULL (entire database will be returned).
+#' @param country (character) Country(ies)/territory(ies) to filter environmental stations.
 #'
 #'@param ... auto-populates when called from \code{siteFinder()} wrapper
 
@@ -27,16 +27,19 @@
 
 #' @export
 # changelog and author contributions / copyrights
-#   Josh Roberti (2017-04-14) Original Creation
+#   Josh Roberti (2017-04-14)
+#       Original Creation
+#   Josh Roberti (2017-05-21)
+#       Removing NULL initializations, replacing with missing() internally
 ##############################################################################################
-getCountry<-function(country=NULL,...){
+getCountry<-function(country,...){
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){
         metadata<-metScanR_DB
     }
     #if user enters a country:
-    if(!is.null(country)){
+    if(!missing(country)){
         #convert to uppercase, trim whitespace, and create search term:
         country<-paste(trimws(toupper(country),"both"),collapse="|")
         #subset the list based on the selected identifiers (if applicable)

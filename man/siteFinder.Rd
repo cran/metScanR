@@ -4,35 +4,33 @@
 \alias{siteFinder}
 \title{Filter environmental monitoring stations (wrapper)}
 \usage{
-siteFinder(country = NULL, siteID = NULL, lat = 39.833333,
-  lon = -98.583333, radius = 50, network = NULL, vars = "temperature",
-  id = NULL, startDate = NULL, endDate = "2006-01-27",
-  includeUnk = TRUE, elevThresh = NULL, ...)
+siteFinder(country, siteID, lat, lon, radius, network, vars, id, startDate,
+  endDate, includeUnk, elevThresh, ...)
 }
 \arguments{
-\item{country}{(character) Country(ies)/territory(ies) to filter environmental stations. Defaults to NULL (entire database will be returned).}
+\item{country}{(character) Country(ies)/territory(ies) to filter environmental stations. See '?getCountry' for more information.}
 
-\item{siteID}{(character) "idType:id" NULL if iniltializing \code{lat} & \code{lon}. Required if \code{lat} & \code{lon} are set to NULL.}
+\item{siteID}{(character) in the form of: *idType:id*. Environmental monitoring network to use as your Point of Interest (POI). See '?getNearby' for more help.}
 
-\item{lat}{(numeric) Latitude of Point of interest (POI). Defaults to 40.0149, i.e., latitude of Boulder, CO, USA\cr}
+\item{lat}{(numeric) Latitude of (POI). See '?getNearby' for more help.}
 
-\item{lon}{(numeric) Longitude of Point of interest (POI). Defaults to -105.2705, i.e., longitude of Boulder, CO, USA\cr}
+\item{lon}{(numeric) Longitude of (POI). See '?getNearby' for more help.}
 
-\item{radius}{(numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km) and defaults to 50.\cr}
+\item{radius}{(numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km). See '?getNearby' for more help}
 
-\item{network}{(character) Network(s)/platform(s) to filter environmental monitoring stations. Defaults to NULL.  Metadata are available for stations in the networks below.  An individual station may be part of multiple networks.  See reference links for further information.\cr}
+\item{network}{(character) Network(s)/platform(s) to filter environmental monitoring stations.   Metadata are available for stations in the networks below.  See '?getNetwork' for more information.\cr}
 
-\item{vars}{(character) Elements(s)/variables(s) of interest.  Defaults to NULL.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements.  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using subTerms such as 'air temperature,' or 'soil temperature,' if they wish to narrown their results.}
+\item{vars}{(character) Elements(s)/variables(s) of interest.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements ('fuzzy search').  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using sub terms such as 'air temperature,' or 'soil temperature,' if they wish to narrow their results. See '?getVars' for more help.\cr}
 
-\item{id}{(character) identifier(s) of interest.  Defaults to NULL. Metadata are available for stations with any of the identifiers listed below. Note that a single station can have multiple, associated identifers.  See reference links for further information.\cr}
+\item{id}{(character) identifier(s) of interest.  Metadata are available for stations with any of the identifiers listed below. It should be noted that a single station man have multiple, associated identifers.  See '?getId' for more information.\cr}
 
-\item{startDate}{(character) "YYY-MM-DD" to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is NULL.}
+\item{startDate}{(character) "YYYY-MM-DD" used to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is missing. See '?getDates' for more information.}
 
-\item{endDate}{(character) "YYY-MM-DD" to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is NULL.}
+\item{endDate}{(character) "YYYY-MM-DD" used to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is missing. See '?getDates' for more information.}
 
-\item{includeUnk}{(logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites without known start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Setting startDate=NULL, initializing endDate, and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized.}
+\item{includeUnk}{(logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites with unknown start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Initializing endDate (while leaving startDate uninitialized) and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized. See '?getDates' for more information.}
 
-\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level.}
+\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level. See '?getElevation' for more information.}
 
 \item{...}{Depracated terms from previous version of function.}
 }

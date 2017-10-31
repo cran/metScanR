@@ -9,18 +9,18 @@
 
 #' @description A wrapper function comprising all filtering functions within the metScanR package.  The metScanR database contains metadata from roughly 107,000 stations among ~200 countries/territories and ~18 networks/platforms, worldwide.   This function returns metadata for a subset of those stations, based on the criteria specified by a user.
 
-#' @param country (character) Country(ies)/territory(ies) to filter environmental stations. Defaults to NULL (entire database will be returned).
-#' @param siteID (character) "idType:id" NULL if iniltializing \code{lat} & \code{lon}. Required if \code{lat} & \code{lon} are set to NULL.
-#' @param lat (numeric) Latitude of Point of interest (POI). Defaults to 40.0149, i.e., latitude of Boulder, CO, USA\cr
-#' @param lon (numeric) Longitude of Point of interest (POI). Defaults to -105.2705, i.e., longitude of Boulder, CO, USA\cr
-#'@param radius (numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km) and defaults to 50.\cr
-#' @param network (character) Network(s)/platform(s) to filter environmental monitoring stations. Defaults to NULL.  Metadata are available for stations in the networks below.  An individual station may be part of multiple networks.  See reference links for further information.\cr
-#' @param vars (character) Elements(s)/variables(s) of interest.  Defaults to NULL.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements.  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using subTerms such as 'air temperature,' or 'soil temperature,' if they wish to narrown their results.
-#' @param id (character) identifier(s) of interest.  Defaults to NULL. Metadata are available for stations with any of the identifiers listed below. Note that a single station can have multiple, associated identifers.  See reference links for further information.\cr
-#' @param startDate (character) "YYY-MM-DD" to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is NULL.
-#' @param endDate (character) "YYY-MM-DD" to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is NULL.
-#' @param includeUnk (logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites without known start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Setting startDate=NULL, initializing endDate, and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized.
-#' @param elevThresh (numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level.
+#' @param country (character) Country(ies)/territory(ies) to filter environmental stations. See '?getCountry' for more information.
+#' @param siteID (character) in the form of: *idType:id*. Environmental monitoring network to use as your Point of Interest (POI). See '?getNearby' for more help.
+#' @param lat (numeric) Latitude of (POI). See '?getNearby' for more help.
+#' @param lon (numeric) Longitude of (POI). See '?getNearby' for more help.
+#'@param radius (numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km). See '?getNearby' for more help
+#' @param network (character) Network(s)/platform(s) to filter environmental monitoring stations.   Metadata are available for stations in the networks below.  See '?getNetwork' for more information.\cr
+#' @param vars (character) Elements(s)/variables(s) of interest.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements ('fuzzy search').  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using sub terms such as 'air temperature,' or 'soil temperature,' if they wish to narrow their results. See '?getVars' for more help.\cr
+#' @param id (character) identifier(s) of interest.  Metadata are available for stations with any of the identifiers listed below. It should be noted that a single station man have multiple, associated identifers.  See '?getId' for more information.\cr
+#' @param startDate (character) "YYYY-MM-DD" used to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is missing. See '?getDates' for more information.
+#' @param endDate (character) "YYYY-MM-DD" used to filter end dates of environmental stations within the metScanR  database. Optional if \code{startDate} is initialized. Required if \code{startDate} is missing. See '?getDates' for more information.
+#' @param includeUnk (logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites with unknown start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Initializing endDate (while leaving startDate uninitialized) and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized. See '?getDates' for more information.
+#' @param elevThresh (numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level. See '?getElevation' for more information.
 #' @param ... Depracated terms from previous version of function.
 #'
 #' @return A list comprising metadata of environmental monitoring stations from country(ies)/territory(ies) specified in \code{country}\cr
@@ -65,88 +65,110 @@
 #     updating code to incorporate change to one, large, metadata file
 #     transformed into modular code structure
 #     deprecated terms: NEON.site, Lat, Lon; replacements: siteID, lat, lon (camelCase format)
+#   Josh Roberti (2017-05-21)
+#       Removing NULL initializations, replacing with missing() internally
 ##############################################################################################
 
-siteFinder<-function(country=NULL,siteID=NULL,lat=39.833333,lon=-98.583333,
-                     radius=50,network=NULL,vars="temperature",id=NULL,
-                     startDate=NULL,endDate="2006-01-27",includeUnk=TRUE,
-                     elevThresh=NULL,...){
+siteFinder<-function(country,siteID,lat,lon,radius,network,vars,id,
+                     startDate,endDate,includeUnk,elevThresh,...){
 #define list of args including depracted if used in ellipses:
 inArgs<-as.list(sys.call())
     #Deprecated parameters: Lat, Lon, and NEON.site have been renamed using camelCase:
     #Will officially remove these terms in a future release
     if(!is.null(inArgs$NEON.site)|!is.null(inArgs$Lat)|!is.null(inArgs$Lon)){
-    .Deprecated(new=inArgs$siteID,msg="The 'NEON.site','Lat' and 'Lon' parameters are depracated.  The user is asked to use 'siteID', 'lat', and 'lon' as replacements, respectively. See ?getNearby for more information.",old=c(inArgs$NEON.site,inArgs$Lat,inArgs$Lon))
+    .Deprecated(new=siteID,msg="The 'NEON.site','Lat' and 'Lon' parameters are depracated.  The user is asked to use 'siteID', 'lat', and 'lon' as replacements, respectively. See ?getNearby for more information.",old=c(inArgs$NEON.site,inArgs$Lat,inArgs$Lon))
     #assign NEON.site, Lat, and Lon to updated parameters so code still works:
-    inArgs$lat<-inArgs$Lat
-    inArgs$lon<-inArgs$Lon
-    inArgs$siteID<-paste0("NEON:",inArgs$NEON.site)
+    lat<-inArgs$Lat
+    lon<-inArgs$Lon
+    siteID<-paste0("NEON:",inArgs$NEON.site)
     }
+
     #initialize metadata
     metadata<-metScanR_DB
     ###### COUNTRY(ies) SELECTION ###########
-    if(!is.null(inArgs$country)){
+    if(!missing(country)){
         #replace class 'call'
-        if(length(inArgs$country)>1){
-            countryClean<-lapply(inArgs$country, function(x) x)
-            inArgs$country<-unlist(countryClean[-grep("c",countryClean)])
+        if(length(country)>1){
+            countryClean<-lapply(country, function(x) x)
+            country<-unlist(countryClean[-grep("c",countryClean)])
         }
-        metadata<-metScanR::getCountry(country=inArgs$country,metadata)
+        metadata<-metScanR::getCountry(country=country,metadata)
     }
     ###### NEARBY (POI) SELECTION ###########
     ## if using siteID:
-    if(!is.null(inArgs$siteID)){
-        metadata<-metScanR::getNearby(siteID=inArgs$siteID,lat=NULL,lon=NULL,
-                                      radius=inArgs$radius,metadata)
+    if(!missing(siteID)){
+        if(!missing(radius)){
+            metadata<-metScanR::getNearby(siteID=siteID,lat,lon,
+                                      radius=radius,metadata)
+        }
+        else{
+            stop("Please Enter a radius in kilometers (km)")
+        }
     }
     ## if using lat & lon pair:
-    if(!is.null(inArgs$lat) & !is.null(inArgs$lon)){
-        metadata<-metScanR::getNearby(siteID=NULL,lat=inArgs$lat,lon=inArgs$lon,
-                                      radius=inArgs$radius,metadata)
+    if(!missing(lat) & !missing(lon)){
+        if(!missing(radius)){
+            metadata<-metScanR::getNearby(siteID,lat=lat,lon=lon,
+                                      radius=radius,metadata)
+        }
+        else{
+            stop("Please Enter a radius in kilometers (km)")
+        }
     }
     ###### NETWORK(s) SELECTION ###########
-    if(!is.null(inArgs$network)){
+    if(!missing(network)){
         #replace class 'call'
-        if(length(inArgs$network)>1){
-            networkClean<-lapply(inArgs$network, function(x) x)
-            inArgs$network<-unlist(networkClean[-grep("c",networkClean)])
+        if(length(network)>1){
+            networkClean<-lapply(network, function(x) x)
+            network<-unlist(networkClean[-grep("c",networkClean)])
         }
-        metadata<-metScanR::getNetwork(network=inArgs$network,metadata)
+        metadata<-metScanR::getNetwork(network=network,metadata)
     }
     ###### VARIABLE(s) SELECTION ###########
-    if(!is.null(inArgs$vars)){
+    if(!missing(vars)){
         #replace class 'call'
-        if(length(inArgs$vars)>1){
-            varsClean<-lapply(inArgs$vars, function(x) x)
-            inArgs$vars<-unlist(varsClean[-grep("c",varsClean)])
+        if(length(vars)>1){
+            varsClean<-lapply(vars, function(x) x)
+            vars<-unlist(varsClean[-grep("c",varsClean)])
         }
-        metadata<-metScanR::getVars(vars=inArgs$vars,metadata)
+        metadata<-metScanR::getVars(vars=vars,metadata)
     }
     ###### IDENTIFIER(s) SELECTION ###########
-    if(!is.null(inArgs$id)){
+    if(!missing(id)){
         #replace class 'call'
-        if(length(inArgs$id)>1){
-            idClean<-lapply(inArgs$id, function(x) x)
-            inArgs$id<-unlist(idClean[-grep("c",idClean)])
+        if(length(id)>1){
+            idClean<-lapply(id, function(x) x)
+            id<-unlist(idClean[-grep("c",idClean)])
         }
-        metadata<-metScanR::getId(id=inArgs$id,metadata)
+        metadata<-metScanR::getId(id=id,metadata)
     }
     ###### DATE(s) SELECTION ###########
-    if(!is.null(inArgs$startDate)|!is.null(inArgs$endDate)){
+    if(!missing(startDate)|!missing(endDate)){
         #set includeUnk to FALSE (default) if User doesn't input something
-        if(is.null(inArgs$includeUnk)){inArgs$includeUnk<-FALSE}
-        metadata<-metScanR::getDates(startDate=inArgs$startDate,endDate=inArgs$endDate,
-                                     includeUnk=inArgs$includeUnk,metadata)
+        if(missing(includeUnk)){includeUnk<-FALSE}
+        if(!missing(startDate) & !missing(endDate)){
+            metadata<-metScanR::getDates(startDate=startDate,endDate=endDate,
+                                     includeUnk=includeUnk,metadata)
+        }
+        if(!missing(startDate) & missing(endDate)){
+            metadata<-metScanR::getDates(startDate=startDate,endDate,
+                                         includeUnk=includeUnk,metadata)
+        }
+        if(missing(startDate) & !missing(endDate)){
+            metadata<-metScanR::getDates(startDate,endDate=endDate,
+                                         includeUnk=includeUnk,metadata)
+        }
+
     }
     ###### ELEVATION filtering ###########
-    if(!is.null(inArgs$elevThresh)){
+    if(!missing(elevThresh)){
         #replace class 'call' with numeric
-        if(length(inArgs$elevThresh)>1){
-            elevClean<-lapply(inArgs$elevThresh, function(x) x)
-            inArgs$elevThresh<-unlist(elevClean[!is.na(as.numeric(gsub("\\D","",
+        if(length(elevThresh)>1){
+            elevClean<-lapply(elevThresh, function(x) x)
+            elevThresh<-unlist(elevClean[!is.na(as.numeric(gsub("\\D","",
                                                                    elevClean)))])
         }
-        metadata<-metScanR::getElevation(elevThresh=inArgs$elevThresh,metadata)
+        metadata<-metScanR::getElevation(elevThresh=elevThresh,metadata)
     }
     #output results
     return(metadata)

@@ -3,9 +3,9 @@
 
 #' @author Josh Roberti \email{jaroberti87@@gmail.com} \cr
 
-#' @description Return metadata of environmental monitoring stations that collect specific element-level (environmental variables, e.g., air temperature) metadata.
+#' @description Return metadata of environmental monitoring stations that collect specific element-level (environmental variables, e.g., air temperature) metadata via 'fuzzy search'.
 #'
-#' @param vars (character) Elements(s)/variables(s) of interest.  Defaults to NULL (entire database will be returned).  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements.  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using subTerms such as 'air temperature,' or 'soil temperature,' if they wish to narrown their results.
+#' @param vars (character) Elements(s)/variables(s) of interest.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements ('fuzzy search').  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using sub terms such as 'air temperature,' or 'soil temperature,' if they wish to narrow their results.
 #'
 #'@param ... auto-populates when called from \code{siteFinder()} wrapper
 
@@ -32,17 +32,21 @@
 #       Original Code logic (old format)
 #   Josh Roberti (2017-04-05; 2017-04-12)
 #       function created as standalone or for use in siteFinder()
+#   Josh Roberti (2017-05-21)
+#       Removing NULL initializations, replacing with missing() internally
+#   Josh Roberti (2017-10-24)
+#       Updates to search logic
 ##############################################################################################
 
-getVars<-function(vars=NULL,...){
+getVars<-function(vars,...){
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){
         metadata<-metScanR_DB
     }
-    if(!is.null(vars)){
+    if(!missing(vars)){
         #trim white spaces at the end of each term and convert to lowercase
-        vars<-trimws(tolower(vars),"both")
+        vars<-paste0("\\b",trimws(tolower(vars),"both"),"\\b")
         vars.clean<-paste(vars,collapse="|")
         #remove sites that have no 'elements' field:
         which.na.vars<-which(is.na(lapply(metadata,"[[", "elements")))
@@ -51,14 +55,26 @@ getVars<-function(vars=NULL,...){
             metadata<-metadata[-which.na.vars]
         }
         #QC check if element exists:
-        vars.subset<-metScanR_terms$traceability[grep(vars.clean,
-                                                          metScanR_terms$traceability$subTerms),]
+        vars.subset.trace1<-metScanR_terms$traceability$subCodes[grep(vars.clean,
+                                                                               metScanR_terms$traceability$subTerms)]
+        #amended 2017-10-25 for NRCS sites, which don't use subCodes, rather subTerms
+        vars.subset.trace2<-metScanR_terms$traceability$subTerms[grep(vars.clean,
+                                                                                 metScanR_terms$traceability$subTerms)]
+        #amended 2017-10-24; aded logic for NEON DPs:
+        vars.subset.master1<-metScanR_terms$master$ElementCode[grep(vars.clean,
+                                                                              metScanR_terms$master$ElementName)]
+        #adding tolower here for variables such as ph since I've applied word boundaries
+        vars.subset.master2<-metScanR_terms$master$ElementCode[grep(vars.clean,
+                                                                  tolower(metScanR_terms$master$SubProducts))]
+
+        #combine into 1 list:
+        vars.subset.all<-unlist(unique(c(vars.subset.trace1,vars.subset.trace2,
+                                         vars.subset.master1,vars.subset.master2)))
+
         #if vars are found in elements.traceability:
-        if(nrow(vars.subset)>0){
-            #grab subCodes from vars.subset to use to search for stations
-            vars.subCodes<-c(unique(unlist(vars.subset$subCodes)),vars)
+        if(length(vars.subset.all)>0){
             #collapse vars.subCodes into one string to use as a search:
-            vars.subCodes.search<-paste(vars.subCodes,collapse = "|")
+            vars.subCodes.search<-paste(vars.subset.all,collapse = "|")
             #subset the list based on the selected identifiers (if applicable)
             metadata<-metadata[grep(vars.subCodes.search,lapply(lapply(metadata,
                                                                "[[","elements"),

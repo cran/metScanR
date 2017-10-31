@@ -4,10 +4,10 @@
 \alias{getVars}
 \title{Filter environmental monitoring stations by reported elements}
 \usage{
-getVars(vars = NULL, ...)
+getVars(vars, ...)
 }
 \arguments{
-\item{vars}{(character) Elements(s)/variables(s) of interest.  Defaults to NULL (entire database will be returned).  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements.  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using subTerms such as 'air temperature,' or 'soil temperature,' if they wish to narrown their results.}
+\item{vars}{(character) Elements(s)/variables(s) of interest.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements ('fuzzy search').  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using sub terms such as 'air temperature,' or 'soil temperature,' if they wish to narrow their results.}
 
 \item{...}{auto-populates when called from \code{siteFinder()} wrapper}
 }
@@ -15,7 +15,7 @@ getVars(vars = NULL, ...)
 A list comprising environmental monitoring sites that observe or collect the element(s)/variable(s) specified in \code{vars}\cr
 }
 \description{
-Return metadata of environmental monitoring stations that collect specific element-level (environmental variables, e.g., air temperature) metadata.
+Return metadata of environmental monitoring stations that collect specific element-level (environmental variables, e.g., air temperature) metadata via 'fuzzy search'.
 }
 \examples{
 \dontrun{

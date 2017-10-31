@@ -4,10 +4,10 @@
 \alias{getElevation}
 \title{Filter environmental monitoring stations by elevation}
 \usage{
-getElevation(elevThresh = NULL, ...)
+getElevation(elevThresh, ...)
 }
 \arguments{
-\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level.  Defaults to NULL (entire database will be returned)}
+\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level.}
 
 \item{...}{auto-populates when called from \code{siteFinder()} wrapper}
 }

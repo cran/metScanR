@@ -7,9 +7,9 @@
 #' Sam Weintraub \cr
 #' Derek Smith
 
-#' @description A plotting tool to map environmetnal monitoring stations from the metScanR database.  NOTE: This function requires internet connection!
+#' @description A plotting tool to map environmetnal monitoring stations from the metScanR database.  **NOTE: This function requires internet connection!**
 
-#' @param x (list) Metadata of environmental monitoring stations from the metScanR package.
+#' @param x (list) Metadata of environmental monitoring stations.
 
 #' @return A map of environmental monitoring stations
 
@@ -49,6 +49,11 @@
 ##############################################################################################
 #map plotting
 mapSiteFinder <- function(x){
+    #updated 2017-10-25 to display error message if user wishes to plot >5000 sites:
+    if(length(x)>10000){
+        stop(paste0("Your search returned ", length(x)," sites! Please filter your results to <=10000 sites if you wish to map"))
+    }
+
     #grab identifiers and transpose:
     identifiers<-lapply(x,"[[","identifiers")
     out<-list()
@@ -89,6 +94,16 @@ mapSiteFinder <- function(x){
         mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
 
     }
+    #browser()
+
+    #make html for outputting IDs with leaflet:
+    idIndexEnds<-grep("date.end|colors",names(mapData))
+    idSeq<-seq(from=idIndexEnds[1]+1,to=idIndexEnds[2]-1,by=1)
+    labels.out<-t(apply(mapData[,idSeq], 1,
+                      function(x) ifelse(!is.na(x),
+                                         paste0("<b>",names(x), " Id: </b>",
+                                                x, "<br>"),"")))
+    labels.out2<-apply(labels.out, 1, function(x) paste(x,collapse=""))
     #use the same palette for the legend colors
     legendColors<-pal
       #AT LEAST 2 NETWORKS:
@@ -103,72 +118,13 @@ mapSiteFinder <- function(x){
                            color=~colors, weight=1, fillColor=~colors,fillOpacity=1,
                            popup = paste("<b> Name: </b>", mapData$name, "<br>",
                                          "<b> Platform: </b>", mapData$platforms, "<br>",
-                                         #"<b> Network(s) </b>", mapData$STNTYPE, "<br>",
-                                         if("COOP" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$COOP),
-                                                    paste0("<b> COOP ID: </b>",
-                                                           mapData$COOP, "<br>"),"")
-                                         },
-                                         if("FAA" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$FAA),
-                                                    paste0("<b> FAA ID: </b>",
-                                                           mapData$FAA, "<br>"),"")
-                                         },
-                                         if("GHCND" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$GHCND),
-                                                    paste0("<b> GHCND ID: </b>",
-                                                           mapData$GHCND, "<br>"),"")
-                                         },
-                                         if("GHCNMLT" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$GHCNMLT),
-                                                    paste0("<b> GHCNMLT ID: </b>",
-                                                           mapData$GHCNMLT, "<br>"),"")
-                                         },
-                                         if("ICAO" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$ICAO),
-                                                    paste0("<b> ICAO ID: </b>",
-                                                           mapData$ICAO, "<br>"),"")
-                                         },
-                                         if("NCDCSTNID" %in% names(mapData)){
-                                            ifelse(!is.na(mapData$NCDCSTNID),
-                                                 paste0("<b> NCDC ID: </b>",
-                                                        mapData$NCDCSTNID, "<br>"),"")
-                                         },
-                                         if("NEON" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$NEON),
-                                                    paste0("<b> NEON ID: </b>",
-                                                           mapData$NEON, "<br>"),"")
-                                         },
-                                         if("NRCS" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$NRCS),
-                                                    paste0("<b> NRCS ID: </b>",
-                                                           mapData$NRCS, "<br>"),"")
-                                         },
-                                         if("NWSLI" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$NWSLI),
-                                                    paste0("<b> NWSLI ID: </b>",
-                                                           mapData$NWSLI, "<br>"),"")
-                                         },
-                                         if("TRANS" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$TRANS),
-                                                    paste0("<b> TRANS ID: </b>",
-                                                           mapData$TRANS, "<br>"),"")
-                                         },
-                                         if("WBAN" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$WBAN),
-                                                    paste0("<b> WBAN ID: </b>",
-                                                           mapData$WBAN, "<br>"),"")
-                                         },
-                                         if("WMO" %in% names(mapData)){
-                                             ifelse(!is.na(mapData$WMO),
-                                                    paste0("<b> WMO ID: </b>",
-                                                           mapData$WMO, "<br>"),"")
-                                         },
+                                         #output IDs (logic completed outside of leaflet)
+                                         labels.out2,
                                          "<b>Start: </b>",mapData$date.begin, "<br>",
                                          "<b> End: </b>",mapData$date.end, "<br>",
                                          "<b> Elevation (m): </b>", round(mapData$elev,3),"<br>",
                                          "<br>"))%>%
-          leaflet::addLegend("bottomleft", color = legendColors, opacity=1,labels= legendLabels,title = "Nearby Sites")
-      #}
+          leaflet::addLegend("bottomleft", color = legendColors, opacity=1,labels= legendLabels,title = "|--  Platform  --|")
+        #}
 }
 

@@ -6,10 +6,10 @@
 
 #' @description Return metadata of environmental monitoring stations from networks/platforms within the metScanR database.
 
-#' @param network (character) Network(s)/platform(s) to filter environmental monitoring stations. Defaults to NULL (entire database will be returned).  Metadata are available for stations in the networks below.  An individual station may be part of multiple networks.  See reference links for further information.\cr
+#' @param network (character) Network(s)/platform(s) to filter environmental monitoring stations. Metadata are available for stations in the networks below.  See reference links for further information.\cr
 #' \cr
 #' AL USRCRN: United States Regional Climate Reference Network - Alabama \cr
-#' \url{https://gis.ncdc.noaa.gov/geoportal/catalog/search/resource/details.page?id=gov.noaa.ncdc:C01117}\cr
+#' \url{https://catalog.data.gov/dataset/al-usrcrn-station-information}\cr
 #' \cr
 #' ASOS: Automated Surface Observing System \cr
 #' \url{https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/automated-surface-observing-system-asos}\cr
@@ -26,31 +26,19 @@
 #' COOP: Cooperative Observer Network \cr
 #' \url{https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/cooperative-observer-network-coop}\cr
 #' \cr
-#' MPRC: Manual Precipitation Network\cr
-#' \cr
-#' MSNT: Non-Telemetered Snow Telemetry Network \cr
-#' \cr
 #' NEON: National Ecological Observatory Network \cr
 #' \url{http://www.neonscience.org/}\cr
 #' \cr
-#' OTHER: Telemetered Natural Resource Conservation Service (NRCS) Stations that do not meet criteria for SNOTEL, SNOLITE, SCAN, or NRCS Experimental hydromet\cr
+#' NADP: National Atmospheric Deposition Program\cr
+#' \url{http://nadp.sws.uiuc.edu/NADP/}\cr
 #' \cr
-#' SCAN: Soil Climate Analysis Network \cr
-#' \url{https://www.wcc.nrcs.usda.gov/about/mon_scan.html} \cr
-#' \cr
-#' SNOW: Snow Course and Aerial Marker Network \cr
-#' \url{https://www.wcc.nrcs.usda.gov/about/mon_manual.html} \cr
-#' \cr
-#' SNTL: Snow Telemetry Network \cr
-#' \url{https://www.wcc.nrcs.usda.gov/about/mon_automate.html}\cr
-#' \cr
-#' SNTLT: Snow Telemetry Network, Limited Sensors \cr
-#' \url{https://www.wcc.nrcs.usda.gov/about/mon_automate.html}\cr
-#' \cr
+#' NRCS: Natural Resources Conservation Service \cr
+#'\url{https://www.wcc.nrcs.usda.gov/web_service/NRCS_Station_Networks.pdf}\cr
+#'\cr
 #' UKN: *unknown* (unidentifed network)\cr
 #' \cr
 #' UPPERAIR: Upper Air network \cr
-#' \url{http://www.ua.nws.noaa.gov/}\cr
+#' \url{https://www.weather.gov/upperair/nws_upper}\cr
 #' \cr
 #' USCRN: United States Climate Reference Network \cr
 #' \url{https://www.ncdc.noaa.gov/crn/} \cr
@@ -88,19 +76,22 @@
 #       Original Code logic
 #   Josh Roberti (2017-04-05)
 #       function created as standalone or for use in siteFinder()
+#   Josh Roberti (2017-05-21)
+#       Removing NULL initializations, replacing with missing() internally
 ##############################################################################################
-getNetwork<-function(network=NULL,...){
+getNetwork<-function(network,...){
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){
         metadata<-metScanR_DB
     }
     #if user enters an ID:
-    if(!is.null(network)){
+    if(!missing(network)){
         #convert to uppercase, trim whitespace, and create search term:
         network<-paste(trimws(toupper(network),"both"),collapse="|")
         #subset the list based on the selected identifiers (if applicable)
-        metadata<-metadata[grep(network,lapply(metadata,"[[", "platform"))]
+        #toupper updated on 2017-10-17 so it's standard across the input and search:
+        metadata<-metadata[grep(network,toupper(lapply(metadata,"[[", "platform")))]
         #return data
         return(metadata)
     }
