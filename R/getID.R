@@ -10,6 +10,9 @@
 #'AIRMon: Atmospheric Integrated Research Monitoring Network\cr
 #'\url{http://nadp.sws.uiuc.edu/AIRMoN/}\cr
 #'\cr
+#'Ameriflux\cr
+#'\url{http://ameriflux.lbl.gov/sites/site-search/#filter-type=all}\cr
+#'\cr
 #'AMNet: Atmospheric Mercury Network\cr
 #'\url{http://nadp.sws.uiuc.edu/amn/}\cr
 #'\cr

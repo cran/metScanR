@@ -1,7 +1,7 @@
 Package: metScanR
 Title: Find, Map, and Gather Environmental Data and Metadata
-Version: 1.1.0
-Date: 2017-10-30
+Version: 1.1.1
+Date: 2017-11-06
 Authors@R: c(person("Josh", "Roberti", email = "jaroberti87@gmail.com", role = c("aut", "cre")),
         person("Cody", "Flagg", role = "aut"),
         person("Lee", "Stanish",  role = "aut"),
@@ -18,8 +18,9 @@ Encoding: UTF-8
 LazyData: no
 RoxygenNote: 6.0.1
 URL: https://cflagg.github.io/metScanR/
+Suggests: testthat
 NeedsCompilation: no
-Packaged: 2017-10-31 21:50:34 UTC; jroberti
+Packaged: 2017-11-06 23:28:52 UTC; jroberti
 Author: Josh Roberti [aut, cre],
   Cody Flagg [aut],
   Lee Stanish [aut],
@@ -27,4 +28,4 @@ Author: Josh Roberti [aut, cre],
   Sam Weintraub [ctb],
   Derek Smith [ctb]
 Repository: CRAN
-Date/Publication: 2017-10-31 23:41:07 UTC
+Date/Publication: 2017-11-07 19:29:02 UTC

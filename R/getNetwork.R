@@ -11,6 +11,9 @@
 #' AL USRCRN: United States Regional Climate Reference Network - Alabama \cr
 #' \url{https://catalog.data.gov/dataset/al-usrcrn-station-information}\cr
 #' \cr
+#' Ameriflux\cr
+#' \url{http://ameriflux.lbl.gov/sites/site-search/#filter-type=all}\cr
+#' \cr
 #' ASOS: Automated Surface Observing System \cr
 #' \url{https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/automated-surface-observing-system-asos}\cr
 #' \cr

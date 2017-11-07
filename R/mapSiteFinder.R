@@ -46,6 +46,10 @@
 #       testing and cleanup
 #   Josh Roberti (2017-05-01)
 #       adding \dontrun{} to examples that take longer time to run
+#   Josh Roberti (2017-10-30)
+#       code made more concise for v1.1.0 release
+#   Josh Roberti (2017-11-03)
+#       bug identified by Dave Durden.  Fixed for v1.1.1 patch
 ##############################################################################################
 #map plotting
 mapSiteFinder <- function(x){
@@ -99,11 +103,27 @@ mapSiteFinder <- function(x){
     #make html for outputting IDs with leaflet:
     idIndexEnds<-grep("date.end|colors",names(mapData))
     idSeq<-seq(from=idIndexEnds[1]+1,to=idIndexEnds[2]-1,by=1)
-    labels.out<-t(apply(mapData[,idSeq], 1,
-                      function(x) ifelse(!is.na(x),
-                                         paste0("<b>",names(x), " Id: </b>",
-                                                x, "<br>"),"")))
-    labels.out2<-apply(labels.out, 1, function(x) paste(x,collapse=""))
+
+    #check for NULL names:
+    nameCheck<-!is.null(names(mapData[,idSeq]))
+    if(nameCheck==T){
+        labels.out<-t(apply(mapData[,idSeq], 1,
+                            function(x) ifelse(!is.na(x),
+                                               paste0("<b>",names(x), " Id: </b>",
+                                                      x, "<br>"),"")))
+        labels.out2<-apply(labels.out, 1, function(x) paste(x,collapse=""))
+    }
+    else{
+        new.df<-data.frame(mapData[,idSeq])
+        names(new.df)<-unique(mapData$platforms)
+
+        labels.out2<-t(apply(new.df, 1,
+                            function(x) ifelse(!is.na(x),
+                                               paste0("<b>",names(x), " Id: </b>",
+                                                      x, "<br>"),"")))
+
+    }
+
     #use the same palette for the legend colors
     legendColors<-pal
       #AT LEAST 2 NETWORKS:

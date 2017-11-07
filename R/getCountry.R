@@ -31,6 +31,8 @@
 #       Original Creation
 #   Josh Roberti (2017-05-21)
 #       Removing NULL initializations, replacing with missing() internally
+#   Josh Roberti (2017-11-06)
+#       Bug fix for entering US or USA when searching for United States
 ##############################################################################################
 getCountry<-function(country,...){
     metadata<-c(...)
@@ -42,6 +44,8 @@ getCountry<-function(country,...){
     if(!missing(country)){
         #convert to uppercase, trim whitespace, and create search term:
         country<-paste(trimws(toupper(country),"both"),collapse="|")
+        #check if any countries = "US" or "USA" and convert to United States
+        country<-gsub("\\bUSA\\b|\\bUS\\b","UNITED STATES",country)
         #subset the list based on the selected identifiers (if applicable)
         metadata<-metadata[grep(country,lapply(lapply(metadata,"[[","location"),
                                                                   "[[", "country"))]

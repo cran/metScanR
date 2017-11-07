@@ -40,3 +40,9 @@
 * Moved NRCS to getNetwork() function and moved all NRCS sub-networks, e.g., SCAN, SNOTEL, etc., to `getID()` function.  This better fits the framework of umbrella organizations (network) and individual sub-networks, such as SCAN.
 * USGS and BOR stations have been detached from NRCS umbrella and are now independent networks
 
+**2017-11-06 metScanR v1.1.1 (Bug fix)**
+
+* Fixed bug in `mapSiteFinder()`.  Passing metadata with only 1 *idType*, e.g., "Ameriflux", caused error when calling function within `mapSiteFinder()`.  
+* Implemented tests for `mapSiteFinder()` using `testthat` package.
+* Altered `.onLoad()` and `.onAttach` files to auto-download external database each time upon startup. 
+* Fixed bug in `getDates()`.  There was an error in the paste0 portion of the Error message. 

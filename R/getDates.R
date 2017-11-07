@@ -44,6 +44,8 @@
 #       adding \dontrun{} to longer examples
 #   Josh Roberti (2017-05-21)
 #       Removing NULL initializations, replacing with missing() internally
+#   Josh Roberti (2017-11-06)
+#       Fixed Paste0() error at end of file if no metadata are returned
 ##############################################################################################
 #startDate<-NULL#as.Date("1910-05-05")
 #endDate<-as.Date("1890-07-08")
@@ -166,10 +168,21 @@ getDates<-function(startDate,endDate,includeUnk=FALSE,...){
         metadata<-metadata[match(useThese$site,names(metadata))]
     }
 
+
     #Throw error message if no sites are returned for the given dates:
     if(length(metadata)==0){
-        if(missing(endDate)){endDate<-Sys.Date()}
-        stop(paste0("No stations with 'known' dates were active from: ", startDate, " to ", endDate, ".  Please see the includeUnk parameter in'?getDates'" ))
+        #missing endDate with startDate
+        if(!missing(startDate) & missing(endDate)){
+            stop(paste0("No stations with 'known' dates were active in ", startDate, ".  Please see the includeUnk parameter in'?getDates'" ))
+        }
+        #missing startDate with endDate
+        if(missing(startDate) & !missing(endDate)){
+            stop(paste0("No stations with 'known' dates were active prior to ", endDate, ".  Please see the includeUnk parameter in'?getDates'" ))
+        }
+        #missing neither startDate or endDate
+        if(!missing(startDate) & !missing(endDate)){
+            stop(paste0("No stations with 'known' dates were active from ", startDate, " to ", endDate, ".  Please see the includeUnk parameter in'?getDates'" ))
+        }
     }
     return(metadata)
 }
