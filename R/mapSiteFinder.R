@@ -10,6 +10,7 @@
 #' @description A plotting tool to map environmetnal monitoring stations from the metScanR database.  **NOTE: This function requires internet connection!**
 
 #' @param x (list) Metadata of environmental monitoring stations.
+#' @param limit (numeric) maximum number of stations to plot.  Defaults to 5000.  Setting this >5000 may result in wait times of up to minute if internet connection is slow.
 
 #' @return A map of environmental monitoring stations
 
@@ -52,10 +53,10 @@
 #       bug identified by Dave Durden.  Fixed for v1.1.1 patch
 ##############################################################################################
 #map plotting
-mapSiteFinder <- function(x){
+mapSiteFinder <- function(x,limit=5000){
     #updated 2017-10-25 to display error message if user wishes to plot >5000 sites:
-    if(length(x)>10000){
-        stop(paste0("Your search returned ", length(x)," sites! Please filter your results to <=10000 sites if you wish to map"))
+    if(length(x)>limit){
+        stop(paste0("Your search returned ", length(x)," sites! Please adjust the 'limit' parameter to a larger number.  \n Please note, it may take upwards of a minute to plot >5,000 stations if your internet connectivity is slow"))
     }
 
     #grab identifiers and transpose:

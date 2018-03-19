@@ -4,8 +4,9 @@
 \alias{siteFinder}
 \title{Filter environmental monitoring stations (wrapper)}
 \usage{
-siteFinder(country, siteID, lat, lon, radius, network, vars, id, startDate,
-  endDate, includeUnk, elevThresh, ...)
+siteFinder(country, siteID, lat, lon, radius, network, vars, startVarsDate,
+  endVarsDate, id, startDate, endDate, includeUnk, elevMin, elevMax, territory,
+  ...)
 }
 \arguments{
 \item{country}{(character) Country(ies)/territory(ies) to filter environmental stations. See '?getCountry' for more information.}
@@ -22,6 +23,10 @@ siteFinder(country, siteID, lat, lon, radius, network, vars, id, startDate,
 
 \item{vars}{(character) Elements(s)/variables(s) of interest.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements ('fuzzy search').  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using sub terms such as 'air temperature,' or 'soil temperature,' if they wish to narrow their results. See '?getVars' for more help.\cr}
 
+\item{startVarsDate}{(character) start date in the form of "YYYY-MM-DD" for filtering environmental variables by active measurement dates. Optional}
+
+\item{endVarsDate}{(character) end date in the form of "YYYY-MM-DD" for filtering environmental variables by active measurement dates. Optional}
+
 \item{id}{(character) identifier(s) of interest.  Metadata are available for stations with any of the identifiers listed below. It should be noted that a single station man have multiple, associated identifers.  See '?getId' for more information.\cr}
 
 \item{startDate}{(character) "YYYY-MM-DD" used to filter start dates of environmental stations within the metScanR database. Optional if \code{endDate} is initialized. Required if \code{endDate} is missing. See '?getDates' for more information.}
@@ -30,7 +35,11 @@ siteFinder(country, siteID, lat, lon, radius, network, vars, id, startDate,
 
 \item{includeUnk}{(logical) Defaults to FALSE and excludes sites with unknown start dates.  Setting to TRUE will include sites with unknown start dates.  Sites with unknown start dates account for ~71 percent of the metScanR database.  This is a result of undocumented, government (or network/governing body) metadata. Nearly all stations within the database have a known end date, however.  Initializing endDate (while leaving startDate uninitialized) and setting includeUnk=TRUE will more than likely return results than if startDate is also initialized. See '?getDates' for more information.}
 
-\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level. See '?getElevation' for more information.}
+\item{elevMin}{(numeric) defines minimum elevation (m) to filter metadata.}
+
+\item{elevMax}{(numeric) defines maximum elevation (m) to filter metadata.}
+
+\item{territory}{(character) state/territory abbreviation (e.g., 'RI'= Rhode Island, United States;'YT' = Yukon Territory, Canada)to filter environmental monitoring stations. \cr}
 
 \item{...}{Depracated terms from previous version of function.}
 }
@@ -50,7 +59,7 @@ A wrapper function comprising all filtering functions within the metScanR packag
   siteFinder(network=c("SCAN","SNTL","ASOS"),startDate="2000-01-05")
 
 #Return metadata of sites in Brazil with elevations of 1500 +/- 250 (m) Above Sea Level
-  siteFinder(elevThresh=c(1500,250),country="Brazil")}
+  siteFinder(minElev=1000,maxElev=1800,country="Brazil")}
 }
 \seealso{
 \link[metScanR]{getNearby}

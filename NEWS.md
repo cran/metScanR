@@ -1,6 +1,7 @@
 # News for Package 'metScanR'
 
-### Tutorial: https://cflagg.github.io/metScanR/tutorials/intro.html
+#### Tutorial: https://jaroberti.github.io/metScanR/tutorials/intro.html
+#### Github Page: https://github.com/jaroberti/metScanR
 
 **2017-01-18 metScanR v0.0.1 (initial release)**
 
@@ -46,3 +47,14 @@
 * Implemented tests for `mapSiteFinder()` using `testthat` package.
 * Altered `.onLoad()` and `.onAttach` files to auto-download external database each time upon startup. 
 * Fixed bug in `getDates()`.  There was an error in the paste0 portion of the Error message. 
+
+**2018-03-19 metScanR v1.2.0 (minor release)**
+
+* The *metScanR* package now comes with a small database, one that comprises ~5,300 environmental monitoring stations.  The full database contains **>100,000** stations and can be downloaded via the `updateDatabase()` function.  Running this function will update the local version of the database with the most up-to-date database stored at <https://github.com/jaroberti/metScanR>.   
+* Added `getTerritory()` function. This function returns metadata for stations within a territory or US state.
+* Added logic to check for internet connection and updates to external database. If user is already running the most current version of database locally the R package will not download database.  If the user is running an outdated version, R will ping the external database and download it locally.
+* Added new parameters: *startVarsDate* and *endVarsDate* to `getVars()` function. see `?getVars` for more information
+* Added new parameter: *limit* to `mapSiteFinder` which users can adjust if they wish to plot thousands of environmental stations.  This was previously capped at 10,000 stations
+* Bug fix for `siteFinder()` code when internally calling any metScanR function allowing multiple inputs, e.g., `getVars()`, `getCountry()`.
+* Deprecated *elevThresh* in `getElevation()` and replaced with *elevMin* and *elevMax*
+ 

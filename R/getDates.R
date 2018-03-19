@@ -69,7 +69,7 @@ getDates<-function(startDate,endDate,includeUnk=FALSE,...){
         startDate<-as.Date(startDate)
         #QC DATE CHECK START
         if(class(startDate)!="Date"){
-            stop("invalid startDate! Please enter startDate in Date format: as.Date('YYYY-mm-dd')")
+            stop("invalid startDate! Please enter startDate in Date format: 'YYYY-mm-dd'")
         }
     }
     #If user enters an endDate:
@@ -78,7 +78,7 @@ getDates<-function(startDate,endDate,includeUnk=FALSE,...){
         endDate<-as.Date(endDate)
         #QC DATE CHECK END
         if(class(endDate)!="Date"){
-            stop("invalid startDate! Please enter endDate in Date format: as.Date('YYYY-mm-dd')")
+            stop("invalid endDate! Please enter endDate in Date format: 'YYYY-mm-dd'")
         }
     }
     #QC DATE CHECK: Make sure endDate is later than startDate:

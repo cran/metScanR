@@ -13,7 +13,7 @@ getNearby(siteID, lat, lon, radius, ...)
 
 \item{lon}{(numeric) Longitude of POI. \code{lat} and \code{lon} are required if \code{siteID} is missing.}
 
-\item{radius}{(numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km). Required\cr}
+\item{radius}{(numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km); Required\cr}
 
 \item{...}{auto-populates when called from \code{siteFinder()} wrapper}
 }

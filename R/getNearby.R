@@ -8,8 +8,8 @@
 #' @param siteID (character) in the form of: [NETWORK]:[ID]. Environmental monitoring network to use as your Point of Interest (POI). Required if \code{lat} & \code{lon} are missing.
 #' @param lat (numeric) Latitude of (POI). \code{lat} and \code{lon} are required if \code{siteID} is missing.
 #' @param lon (numeric) Longitude of POI. \code{lat} and \code{lon} are required if \code{siteID} is missing.
-#'@param radius (numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km). Required\cr
-#'@param ... auto-populates when called from \code{siteFinder()} wrapper
+#' @param radius (numeric) Search radius outward from POI for finding environmental monitoring stations. Defined in kilometers (km); Required\cr
+#' @param ... auto-populates when called from \code{siteFinder()} wrapper
 #'
 #' @return A list comprising metadata of environmental monitoring stations located within \code{radius} from the user-entered \code{siteID} or \code{Lat}/\code{Lon} POI.
 

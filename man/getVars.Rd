@@ -4,10 +4,14 @@
 \alias{getVars}
 \title{Filter environmental monitoring stations by reported elements}
 \usage{
-getVars(vars, ...)
+getVars(vars, startVarsDate, endVarsDate, ...)
 }
 \arguments{
 \item{vars}{(character) Elements(s)/variables(s) of interest.  The user can search for general, environmental terms, such as 'temperature,' or 'wind,' and the function will return environmental stations that collect the specified elements ('fuzzy search').  Keep in mind that the database contains ~107,000 stations, worldwide.  Searching for a general term such as 'temperature' will return many stations. The user is advised to search for more granular terms, e.g., using sub terms such as 'air temperature,' or 'soil temperature,' if they wish to narrow their results.}
+
+\item{startVarsDate}{(character) start date in the form of "YYYY-MM-DD" for filtering environmental variables by active measurement dates. Optional}
+
+\item{endVarsDate}{(character) end date in the form of "YYYY-MM-DD" for filtering environmental variables by active measurement dates. Optional}
 
 \item{...}{auto-populates when called from \code{siteFinder()} wrapper}
 }
@@ -22,7 +26,9 @@ Return metadata of environmental monitoring stations that collect specific eleme
 #return a list of sites that collect humidity data
   getVars(vars="humidity")
 #return a list of sites that collect soil temperature and/or wind data
-  getVars(vars=c("soil temperature","wind"))}
+  getVars(vars=c("soil temperature","wind"))
+#return a list of sites that collected snow depth data during 1970-01-01 thru 1985-05-10
+  getVars(vars = "snow depth",startVarsDate = "1970-01-01",endVarsDate = "1985-05-10")}
 }
 \seealso{
 \link[metScanR]{siteFinder}

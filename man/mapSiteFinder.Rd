@@ -4,10 +4,12 @@
 \alias{mapSiteFinder}
 \title{Map environmental monitoring stations}
 \usage{
-mapSiteFinder(x)
+mapSiteFinder(x, limit = 5000)
 }
 \arguments{
 \item{x}{(list) Metadata of environmental monitoring stations.}
+
+\item{limit}{(numeric) maximum number of stations to plot.  Defaults to 5000.  Setting this >5000 may result in wait times of up to minute if internet connection is slow.}
 }
 \value{
 A map of environmental monitoring stations

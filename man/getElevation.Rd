@@ -4,10 +4,12 @@
 \alias{getElevation}
 \title{Filter environmental monitoring stations by elevation}
 \usage{
-getElevation(elevThresh, ...)
+getElevation(elevMin, elevMax, ...)
 }
 \arguments{
-\item{elevThresh}{(numeric) defines elevation range to filter metadata.  Units are in meters (m).  If \code{elevThresh} is a single value, the function will return sites within the database that have elevations less than or equal to \code{elevThresh}. Alternatively, if \code{elevThresh} is a numeric vector of length = 2, the function will assign the first component as a midpoint elevation, and the second component as a threshold (range), e.g., \code{elevThresh}=c(100,50) will return sites that have elevations within 100 +/- 50 (m) Above Sea Level.}
+\item{elevMin}{(numeric) defines the minimum elevation to filter metadata.  Units are in meters (m) Above Sea Level.}
+
+\item{elevMax}{(numeric) defines the maximum elevation to filter metadata.  Units are in meters (m) Above Sea Level.}
 
 \item{...}{auto-populates when called from \code{siteFinder()} wrapper}
 }
@@ -19,10 +21,10 @@ Return metadata of environmental monitoring stations that have a specific elevat
 }
 \examples{
 \dontrun{
-#return metadata of sites that have elevations between 1500 +/- 500 (m) Above Sea Level
-  getElevation(elevThresh=c(1500,500))
-#return metadata of sites that have elevations less than or equal to 3500 (m) Above Sea Level
-  getElevation(elevThresh=3500)}
+#return metadata of sites that have elevations above 1500 (m) Above Sea Level
+  getElevation(elevMin=1500)
+#return metadata of sites that have elevations less than 35 (m) Above Sea Level
+  getElevation(elevMax=35)}
 }
 \seealso{
 \link[metScanR]{siteFinder}

@@ -40,3 +40,15 @@ NULL
 #' @format (data frame) Environmental terms and data product
 #' identifiers from environmental monitoring networks, worldwide
 NULL
+#' @name dbLog
+#' @docType data
+#' @title metScanR_DB Update Log
+#' @description A simple log file for the version and date of database revisions.
+#' More information on specific updates to the database can be found at
+#' \url{https://jaroberti.github.io/metScanR/}.
+#' @keywords datasets, environmental data, metadata, atmospheric data,
+#' meteorology, weather, n-grams
+#' @usage dbLog
+#' @format (data frame) Version number and publication dates.
+NULL
+
