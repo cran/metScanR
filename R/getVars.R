@@ -40,9 +40,12 @@
 #       Removing NULL initializations, replacing with missing() internally
 #   Josh Roberti (2017-10-24)
 #       Updates to search logic
+#   Josh Roberti (2019-01-28)
+#       minor cleanup - testing with new database
 ##############################################################################################
 
 getVars<-function(vars,startVarsDate,endVarsDate,...){
+    #browser()
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){
@@ -75,7 +78,7 @@ getVars<-function(vars,startVarsDate,endVarsDate,...){
 
         #combine into 1 list to search metScanR_DB
 
-        vars.subset.all<-unlist(unique(c(vars.subset.trace1,vars.subset.trace2,
+        vars.subset.all<-unique(unlist(c(vars.subset.trace1,vars.subset.trace2,
                                          vars.subset.master1,vars.subset.master2)))
 
         #if vars are found in elements.traceability:

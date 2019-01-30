@@ -61,7 +61,8 @@ getNearby<-function(siteID,lat,lon,radius,...){
         #id search:
         id.search<-gsub(".*:","",siteID)
         #match siteID with idType and id with site within the metadata file:
-        idType.search.match<-grep(idType.search,lapply(lapply(metadata,"[[",
+        #browser()
+        idType.search.match<-grep(idType.search,lapply(lapply(c,"[[",
                                                               "identifiers"), "[[", "idType"))
         id.search.match<-grep(id.search,lapply(lapply(metadata,"[[",
                                                       "identifiers"), "[[", "id"))
@@ -79,6 +80,7 @@ getNearby<-function(siteID,lat,lon,radius,...){
                                                                 "location"), "[[", "longitude_dec"))),stringsAsFactors = FALSE)
         #convert to numeric:
         site.coords<-data.frame(t(apply(site.coords, 2, function(x) as.numeric(x))))
+
     }
 
     #DISTANCE AND DIRECTION CALCS:

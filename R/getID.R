@@ -8,16 +8,16 @@
 #' @param id (character) identifier(s) of interest.  Metadata are available for stations with any of the identifiers listed below. It should be noted that a station may have multiple, associated identifers.  For instance, a single station may have COOP, GHCND, and FAA identifiers.  See reference links for further information.\cr
 #' \cr
 #'AIRMon: Atmospheric Integrated Research Monitoring Network\cr
-#'\url{http://nadp.sws.uiuc.edu/AIRMoN/}\cr
+#'\url{http://nadp.slh.wisc.edu/AIRMoN/}\cr
 #'\cr
 #'Ameriflux\cr
 #'\url{http://ameriflux.lbl.gov/sites/site-search/#filter-type=all}\cr
 #'\cr
 #'AMNet: Atmospheric Mercury Network\cr
-#'\url{http://nadp.sws.uiuc.edu/amn/}\cr
+#'\url{http://nadp.slh.wisc.edu/amn/}\cr
 #'\cr
 #'AMoN: Ammonia Monitoring Netowkr\cr
-#'\url{http://nadp.sws.uiuc.edu/AMoN/}\cr
+#'\url{http://nadp.slh.wisc.edu/AMoN/}\cr
 #'\cr
 #'BOR: Bureau of Reclamation \cr
 #'\url{https://www.wcc.nrcs.usda.gov/wsf/wsf-reservoir.html}\cr
@@ -38,7 +38,7 @@
 #'\url{http://www.icao.int/Pages/default.aspx}\cr
 #'\cr
 #'MDN: Mercury Deposition Network\cr
-#'\url{http://nadp.sws.uiuc.edu/MDN/}\cr
+#'\url{https://nadp.slh.wisc.edu/MDN/}\cr
 #'\cr
 #'MPRC: Manual Precipitation Network\cr
 #' \cr
@@ -54,7 +54,7 @@
 #'\url{https://www.weather.gov/arh/stationlist}\cr
 #'\cr
 #'NTN: National Trends Network\cr
-#'\url{http://nadp.sws.uiuc.edu/NTN/}\cr
+#'\url{http://nadp.slh.wisc.edu/NTN/}\cr
 #'\cr
 #'OTHER: Telemetered Natural Resource Conservation Service (NRCS) Stations that do not meet criteria for SNOTEL, SNOLITE, SCAN, or NRCS Experimental hydromet\cr
 #' \cr

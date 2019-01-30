@@ -12,7 +12,7 @@
 
 **2017-05-18 metScanR v1.0.0 (major release)**
 
-* Database removed from package source and stored on Github at https://github.com/cflagg/metScanR/raw/master/data/. Most recent version of database is automatically accessed whenever 'metScanR' package is loaded to R environment.
+* Database removed from package source and stored on Github at https://github.com/jaroberti/metScanR/raw/master/data/. Most recent version of database is automatically accessed whenever 'metScanR' package is loaded to R environment.
 * Database updated to include ~107,000 environmental monitoring stations among 18 different networks, worldwide
 * Converted `siteFinder` into wrapper function to call newly added functions:
     * `getNearby`
@@ -57,4 +57,10 @@
 * Added new parameter: *limit* to `mapSiteFinder` which users can adjust if they wish to plot thousands of environmental stations.  This was previously capped at 10,000 stations
 * Bug fix for `siteFinder()` code when internally calling any metScanR function allowing multiple inputs, e.g., `getVars()`, `getCountry()`.
 * Deprecated *elevThresh* in `getElevation()` and replaced with *elevMin* and *elevMax*
+
+**2019-01-29 metScanR v1.2.1 (patch)**
+
+* `updateDatabase()` now checks the search path before updating.  this properly detaches metScanR if loaded.
+* minor code change to `getvars()`
+
  

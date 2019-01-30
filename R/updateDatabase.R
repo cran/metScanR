@@ -27,6 +27,7 @@
 ##############################################################################################
 
 updateDatabase=function(){
+    options(stringsAsFactors = F)
 
     #Define path to external database:
 
@@ -35,7 +36,7 @@ updateDatabase=function(){
 
     # extDB<- "https://github.com/jaroberti/metScanR/raw/master/data/metScanR_DB.rda"
     # extTermsDB <- "https://github.com/jaroberti/metScanR/raw/master/data/metScanR_terms.rda"
-     extLog="https://raw.githubusercontent.com/jaroberti/metScanR/master/data/dbLog.rda"
+    extLog="https://raw.githubusercontent.com/jaroberti/metScanR/master/data/dbLog.rda"
 
     # extRDB="https://github.com/jaroberti/metScanR/raw/master/data/Rdata.rdb"
     # extRDS="https://github.com/jaroberti/metScanR/raw/master/data/Rdata.rds"
@@ -69,7 +70,9 @@ updateDatabase=function(){
                 message("Database is already up-to-date.")
             }
             else{
-                detach(name = "package:metScanR", unload=T)
+                if("package:metScanR" %in% search()){
+                    detach(name = "package:metScanR", unload=T)
+                }
                 message("Updating database...")
                 utils::download.file(extDB, destfile = localDB)
                 utils::download.file(extTermsDB, destfile = localTermsDB)
@@ -88,9 +91,9 @@ updateDatabase=function(){
 
         #check if updateDateFile exists:
         if(!file.exists(updateLog)){
-        #load(url(extLog))
-        updateDate=Sys.Date()#as.Date(dbLog$date[length(dbLog$date)])
-        # if(updateDate>localDate){
+            #load(url(extLog))
+            updateDate=Sys.Date()#as.Date(dbLog$date[length(dbLog$date)])
+            # if(updateDate>localDate){
             detach(name = "package:metScanR", unload=T)
             message("Updating database...")
             utils::download.file(extDB, destfile = localDB)

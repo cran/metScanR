@@ -5,8 +5,8 @@
 \title{Filter environmental monitoring stations (wrapper)}
 \usage{
 siteFinder(country, siteID, lat, lon, radius, network, vars, startVarsDate,
-  endVarsDate, id, startDate, endDate, includeUnk, elevMin, elevMax, territory,
-  ...)
+  endVarsDate, id, startDate, endDate, includeUnk, elevMin, elevMax,
+  territory, ...)
 }
 \arguments{
 \item{country}{(character) Country(ies)/territory(ies) to filter environmental stations. See '?getCountry' for more information.}

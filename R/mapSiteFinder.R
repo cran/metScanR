@@ -83,12 +83,12 @@ mapSiteFinder <- function(x,limit=5000){
             #always make it relative to 11 because each palette needs min of 3
             colPal1<- 11
             colPal2<-length(unique(mapData$platforms)) %% 11
-            pal<-c(RColorBrewer::brewer.pal(n=colPal1, name="Paired"),
-                   RColorBrewer::brewer.pal(n=colPal2, name="Dark2"))
+            pal<-c(RColorBrewer::brewer.pal(n=colPal1, name="Set1"),
+                   RColorBrewer::brewer.pal(n=colPal2, name="PuOr"))
             mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
         }
         else{
-            pal<-RColorBrewer::brewer.pal(n=length(unique(mapData$platforms)), name="Paired")
+            pal<-RColorBrewer::brewer.pal(n=length(unique(mapData$platforms)), name="Set1")
             mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
         }
     }
@@ -130,13 +130,12 @@ mapSiteFinder <- function(x,limit=5000){
       #AT LEAST 2 NETWORKS:
       #define %>% so it passes RMD check
       `%>%` <-leaflet::`%>%`
-      #if(length(unique(mapData$platforms))>=2){
         leaflet::leaflet(mapData) %>%
-          leaflet::addTiles(urlTemplate = "http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}",attribution = 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>')%>%
+            leaflet::addProviderTiles(provider = "Stamen.Toner") %>%
           leaflet::addCircleMarkers(lng = as.numeric(mapData$longitude_dec),
                                     lat = as.numeric(mapData$latitude_dec),
-                                    radius=4,
-                           color=~colors, weight=1, fillColor=~colors,fillOpacity=1,
+                                    radius=8, stroke = TRUE,
+                           color='black', weight=2, fillColor=~colors,fillOpacity=1,
                            popup = paste("<b> Name: </b>", mapData$name, "<br>",
                                          "<b> Platform: </b>", mapData$platforms, "<br>",
                                          #output IDs (logic completed outside of leaflet)
