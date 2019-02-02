@@ -28,7 +28,7 @@ Return metadata of environmental monitoring stations nearby a specific environme
 #returns metadata from all sites within 50 km of NEON site 'CPER'
   getNearby(siteID="NEON:CPER", radius=50)
 #return metadata of sites within 10 km of Lat=41.7821 & Lon = -71.4204 (Cranston, RI, USA)
-  getNearby(lat=41.7821, lon = -71.4204, radius=10)}
+  getNearby(lat=41.7821, lon = -71.4204, radius=40)}
 }
 \seealso{
 \link[metScanR]{siteFinder}

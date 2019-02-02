@@ -16,7 +16,7 @@
 #' @examples
 #' \dontrun{
 #' #returns metadata from all stations within Rhode Island (RI)
-#'   getTerritory(territory"RI")
+#'   getTerritory(territory = "RI")
 #' #returns metadata from stations within Colorado and Utah
 #'   getTerritory(territory=c("CO","UT"))}
 

@@ -45,7 +45,6 @@
 ##############################################################################################
 
 getVars<-function(vars,startVarsDate,endVarsDate,...){
-    #browser()
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){

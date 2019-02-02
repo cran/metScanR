@@ -63,4 +63,13 @@
 * `updateDatabase()` now checks the search path before updating.  this properly detaches metScanR if loaded.
 * minor code change to `getvars()`
 
- 
+**2019-02-01 metScanR v1.2.2 (patch)**
+
+* Found a copy-paste error in `getNetwork()`, which ultimately affected `siteFinder()` code
+* Reverted back to original `mapSiteFinder()` leaflet background and switched from RColorBrewer to matlab package for color scheme in `mapSiteFinder()`.  RColorBrewer has a max limit of colors, which resulted in an error if many different networks are plotted.  
+* Created many new tests in our `testthat` function
+* Created unit tests to compliment `testthat` tests
+
+
+
+

@@ -55,11 +55,9 @@ updateDatabase=function(){
 
 
     if(!RCurl::url.exists(extDB)){stop("No internet connection- cannot update database.")}
-    #browser()
     # will load as dbLog
     load(localLog)
     localDate=as.Date(dbLog$date[length(dbLog$date)])
-    #browser()
     if(RCurl::url.exists(extDB)){
 
         if(file.exists(updateLog)){
@@ -94,7 +92,9 @@ updateDatabase=function(){
             #load(url(extLog))
             updateDate=Sys.Date()#as.Date(dbLog$date[length(dbLog$date)])
             # if(updateDate>localDate){
-            detach(name = "package:metScanR", unload=T)
+            if("package:metScanR" %in% search()){
+                detach(name = "package:metScanR", unload=T)
+            }
             message("Updating database...")
             utils::download.file(extDB, destfile = localDB)
             utils::download.file(extTermsDB, destfile = localTermsDB)

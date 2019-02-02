@@ -51,6 +51,8 @@
 #       code made more concise for v1.1.0 release
 #   Josh Roberti (2017-11-03)
 #       bug identified by Dave Durden.  Fixed for v1.1.1 patch
+#   Josh Roberti (2019-01-31)
+#       Removing RColorBrewer package and moving to matlab::jetcolors()
 ##############################################################################################
 #map plotting
 mapSiteFinder <- function(x,limit=5000){
@@ -76,30 +78,8 @@ mapSiteFinder <- function(x,limit=5000){
     names(mapData)<-gsub(".*info.|identifiers.","",names(mapData))
     #define labels
     legendLabels<-levels(as.factor(mapData$platforms))
-    #if number of unique platforms >=3:
-    if(length(unique(mapData$platforms))>=3){
-        #need to concatonate two color palattes to handle this:
-        if(length(unique(mapData$platforms))>12){
-            #always make it relative to 11 because each palette needs min of 3
-            colPal1<- 11
-            colPal2<-length(unique(mapData$platforms)) %% 11
-            pal<-c(RColorBrewer::brewer.pal(n=colPal1, name="Set1"),
-                   RColorBrewer::brewer.pal(n=colPal2, name="PuOr"))
-            mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
-        }
-        else{
-            pal<-RColorBrewer::brewer.pal(n=length(unique(mapData$platforms)), name="Set1")
-            mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
-        }
-    }
-    #if unique platforms <3:
-    else{
-        #adding 1+ so it never assigns 'white'
-        pal<-grDevices::palette()[3+(1:length(unique(mapData$platforms)))]
-        mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
-
-    }
-    #browser()
+    pal<-matlab::jet.colors(n = length(unique(mapData$platforms)))
+    mapData$colors <- pal[unclass(as.factor(mapData$platforms))]
 
     #make html for outputting IDs with leaflet:
     idIndexEnds<-grep("date.end|colors",names(mapData))
@@ -124,18 +104,22 @@ mapSiteFinder <- function(x,limit=5000){
                                                       x, "<br>"),"")))
 
     }
-
     #use the same palette for the legend colors
     legendColors<-pal
       #AT LEAST 2 NETWORKS:
       #define %>% so it passes RMD check
       `%>%` <-leaflet::`%>%`
         leaflet::leaflet(mapData) %>%
-            leaflet::addProviderTiles(provider = "Stamen.Toner") %>%
+          leaflet::addTiles(urlTemplate = "http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}",attribution = 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>')%>%
+            #leaflet::addProviderTiles(provider = "Stamen.Toner") %>%
           leaflet::addCircleMarkers(lng = as.numeric(mapData$longitude_dec),
                                     lat = as.numeric(mapData$latitude_dec),
-                                    radius=8, stroke = TRUE,
-                           color='black', weight=2, fillColor=~colors,fillOpacity=1,
+                                    radius=4,
+                                    color="black",
+                                    weight=1,
+                                    fillColor=~colors,
+                                    fillOpacity=1,
+                                    stroke = T,
                            popup = paste("<b> Name: </b>", mapData$name, "<br>",
                                          "<b> Platform: </b>", mapData$platforms, "<br>",
                                          #output IDs (logic completed outside of leaflet)

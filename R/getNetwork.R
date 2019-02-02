@@ -60,10 +60,10 @@
 
 #' @examples
 #' \dontrun{
-#' #returns metadata from all SCAN sites within the database
-#'   getNetwork(network="SCAN")
-#' #returns metadata from ASOS, COOP, USCRN, and NEON sites within the database
-#'   getNetwork(network=c("ASOS","COOP","USCRN","NEON"))}
+#' #returns metadata from all NRCS sites within the database
+#'   getNetwork(network="NRCS")
+#' #returns metadata from ASOS, USCRN, and NEON sites within the database
+#'   getNetwork(network=c("ASOS","USCRN","NEON"))}
 
 #' @references see reference links above
 
