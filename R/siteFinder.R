@@ -30,7 +30,36 @@
 #'
 #' @return A list comprising metadata of environmental monitoring stations from country(ies)/territory(ies) specified in \code{country}\cr
 #'
-#' @keywords environment, data, environmental data, atmosphere, atmopsheric data, climate, in-situ, weather, meteorology, meteorological
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
 
 #' @examples
 #' \dontrun{
@@ -52,7 +81,7 @@
 #' \link[metScanR]{getVars}
 #' \link[metScanR]{getCountry}
 #' \link[metScanR]{getId}
-#' \link[metScanR]{mapSiteFinder}
+#' \link[metScanR]{mapResults}
 #' \link[metScanR]{metScanR_DB}
 
 #' @export
@@ -78,18 +107,21 @@
 
 siteFinder<-function(country,siteID,lat,lon,radius,network,vars,startVarsDate,endVarsDate,id,
                      startDate,endDate,includeUnk,elevMin,elevMax,territory,...){
-#define list of args including depracted if used in ellipses:
-inArgs<-as.list(sys.call())
+    #define list of args including deprecated if used in ellipses:
+    inArgs<-as.list(sys.call())
     #Deprecated parameters: Lat, Lon, and NEON.site have been renamed using camelCase:
     #Will officially remove these terms in a future release
     if(!is.null(inArgs$NEON.site)|!is.null(inArgs$Lat)|!is.null(inArgs$Lon)){
-    .Deprecated(new=siteID,msg="The 'NEON.site','Lat' and 'Lon' parameters are depracated.  The user is asked to use 'siteID', 'lat', and 'lon' as replacements, respectively. See ?getNearby for more information.",old=c(inArgs$NEON.site,inArgs$Lat,inArgs$Lon))
-    #assign NEON.site, Lat, and Lon to updated parameters so code still works:
-    lat<-inArgs$Lat
-    lon<-inArgs$Lon
-    siteID<-paste0("NEON:",inArgs$NEON.site)
+        .Deprecated(new=siteID,msg="The 'NEON.site','Lat' and 'Lon' parameters are depracated.  The user is asked to use 'siteID', 'lat', and 'lon' as replacements, respectively. See ?getNearby for more information.",old=c(inArgs$NEON.site,inArgs$Lat,inArgs$Lon))
+        #assign NEON.site, Lat, and Lon to updated parameters so code still works:
+        lat<-inArgs$Lat
+        lon<-inArgs$Lon
+        siteID<-paste0("NEON:",inArgs$NEON.site)
     }
-
+    #check for search radius:
+    if(missing(radius)){
+        stop("Please enter a search radius (km)")
+    }
     #initialize metadata
     metadata<-metScanR_DB
     ###### COUNTRY(ies) SELECTION ###########

@@ -69,7 +69,7 @@ A wrapper function comprising all filtering functions within the metScanR packag
 \link[metScanR]{getVars}
 \link[metScanR]{getCountry}
 \link[metScanR]{getId}
-\link[metScanR]{mapSiteFinder}
+\link[metScanR]{mapResults}
 \link[metScanR]{metScanR_DB}
 }
 \author{
@@ -79,13 +79,3 @@ Lee Stanish \cr
 Sam Weintraub \cr
 Derek Smith
 }
-\keyword{atmopsheric}
-\keyword{atmosphere,}
-\keyword{climate,}
-\keyword{data,}
-\keyword{environment,}
-\keyword{environmental}
-\keyword{in-situ,}
-\keyword{meteorological}
-\keyword{meteorology,}
-\keyword{weather,}

@@ -5,8 +5,36 @@
 #' among 219 countries/territories and 18 environmental networks.
 #' Metadata are gathered from a growing number of sources and the database is
 #' continually updated to reflect the increase of information.\cr
-#' @keywords datasets, environmental data, metadata, atmospheric data,
-#' meteorology, weather
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
 #' @usage metScanR_DB
 #' @format (list) Metadata from ~107,000 environmental monitoring
 #' stations, worldwide.  The metadata for each site include: \cr
@@ -34,8 +62,37 @@ NULL
 #' networks within the metScanR_DB.  Terms are gathered from a
 #' growing number of sources and the terms database is continually updated to
 #' reflect the increase of information.
-#' @keywords datasets, environmental data, metadata, atmospheric data,
-#' meteorology, weather, n-grams
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
+#' @concepts n-grams
 #' @usage metScanR_terms
 #' @format (data frame) Environmental terms and data product
 #' identifiers from environmental monitoring networks, worldwide
@@ -46,8 +103,37 @@ NULL
 #' @description A simple log file for the version and date of database revisions.
 #' More information on specific updates to the database can be found at
 #' \url{https://jaroberti.github.io/metScanR/}.
-#' @keywords datasets, environmental data, metadata, atmospheric data,
-#' meteorology, weather, n-grams
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
+#' @concepts n-grams
 #' @usage dbLog
 #' @format (data frame) Version number and publication dates.
 NULL

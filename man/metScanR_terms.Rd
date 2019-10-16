@@ -16,11 +16,3 @@ networks within the metScanR_DB.  Terms are gathered from a
 growing number of sources and the terms database is continually updated to
 reflect the increase of information.
 }
-\keyword{atmospheric}
-\keyword{data,}
-\keyword{datasets,}
-\keyword{environmental}
-\keyword{metadata,}
-\keyword{meteorology,}
-\keyword{n-grams}
-\keyword{weather,}

@@ -41,35 +41,19 @@
 #' @examples
 #' \dontrun{
 #' #map environmental monitoring stations located in Italy
-#'   mapSiteFinder(getCountry(country="Italy"))
+#'   mapResults(getCountry(country="Italy"))
 #' #map environmental monitoring stations within 50 km of Boulder, CO, USA
-#'   mapSiteFinder(getNearby(lat=40.0149,lon=-105.2705,radius=50))}
+#'   mapResults(getNearby(lat=40.0149,lon=-105.2705,radius=50))}
 #'
 
 #' @export
 # changelog and author contributions / copyrights
-#   Josh Roberti, Derek Smith (2016-02)
-#       Original Code and bug fixes
-#   Josh Roberti, Lee Stanish, Cody Flagg (2016-12-16)
-#       split the siteFinder code into search function and mapping function
-#   Josh Roberti (2017-04-19)
-#       adapted function to handle new metadata structure
-#   Josh Roberti (2017-04-27)
-#       testing and cleanup
-#   Josh Roberti (2017-05-01)
-#       adding \dontrun{} to examples that take longer time to run
-#   Josh Roberti (2017-10-30)
-#       code made more concise for v1.1.0 release
-#   Josh Roberti (2017-11-03)
-#       bug identified by Dave Durden.  Fixed for v1.1.1 patch
-#   Josh Roberti (2019-01-31)
-#       Removing RColorBrewer package and moving to matlab::jetcolors()
+#   Josh Roberti (2019-10-14)
+#       Created mapResults and deprecated mapSiteFinder
 ##############################################################################################
 #map plotting
-mapSiteFinder <- function(x,limit=5000){
-    #add deprecation message:
-    .Deprecated(old = "mapSiteFinder",new = "mapResults",msg = "mapSiteFinder() is deprecated.  Please use mapResults().") #include a package argument, too
-    mapResults(x=x,limit = limit)
+mapResults <- function(x,limit=5000){
+
     #updated 2017-10-25 to display error message if user wishes to plot >5000 sites:
     if(length(x)>limit){
         stop(paste0("Your search returned ", length(x)," sites! Please adjust the 'limit' parameter to a larger number.  \n Please note, it may take upwards of a minute to plot >5,000 stations if your internet connectivity is slow"))
@@ -113,35 +97,35 @@ mapSiteFinder <- function(x,limit=5000){
         names(new.df)<-unique(mapData$platforms)
 
         labels.out2<-t(apply(new.df, 1,
-                            function(x) ifelse(!is.na(x),
-                                               paste0("<b>",names(x), " Id: </b>",
-                                                      x, "<br>"),"")))
+                             function(x) ifelse(!is.na(x),
+                                                paste0("<b>",names(x), " Id: </b>",
+                                                       x, "<br>"),"")))
 
     }
     #use the same palette for the legend colors
     legendColors<-pal
-      #AT LEAST 2 NETWORKS:
-      #define %>% so it passes RMD check
-      `%>%` <-leaflet::`%>%`
-        leaflet::leaflet(mapData) %>%
+    #AT LEAST 2 NETWORKS:
+    #define %>% so it passes RMD check
+    `%>%` <-leaflet::`%>%`
+    leaflet::leaflet(mapData) %>%
         leaflet::addProviderTiles(provider = "CartoDB.Positron") %>%
         leaflet::addCircleMarkers(lng = as.numeric(mapData$longitude_dec),
-                                    lat = as.numeric(mapData$latitude_dec),
-                                    radius=4,
-                                    color="black",
-                                    weight=1,
-                                    fillColor=~colors,
-                                    fillOpacity=1,
-                                    stroke = T,
-                           popup = paste("<b> Name: </b>", mapData$name, "<br>",
-                                         "<b> Platform: </b>", mapData$platforms, "<br>",
-                                         #output IDs (logic completed outside of leaflet)
-                                         labels.out2,
-                                         "<b>Start: </b>",mapData$date.begin, "<br>",
-                                         "<b> End: </b>",mapData$date.end, "<br>",
-                                         "<b> Elevation (m): </b>", round(mapData$elev,3),"<br>",
-                                         "<br>"))%>%
-          leaflet::addLegend("bottomleft", color = legendColors, opacity=1,labels= legendLabels,title = "|--  Platform  --|")
-        #}
+                                  lat = as.numeric(mapData$latitude_dec),
+                                  radius=4,
+                                  color="black",
+                                  weight=1,
+                                  fillColor=~colors,
+                                  fillOpacity=1,
+                                  stroke = T,
+                                  popup = paste("<b> Name: </b>", mapData$name, "<br>",
+                                                "<b> Platform: </b>", mapData$platforms, "<br>",
+                                                #output IDs (logic completed outside of leaflet)
+                                                labels.out2,
+                                                "<b>Start: </b>",mapData$date.begin, "<br>",
+                                                "<b> End: </b>",mapData$date.end, "<br>",
+                                                "<b> Elevation (m): </b>", round(mapData$elev,3),"<br>",
+                                                "<br>"))%>%
+        leaflet::addLegend("bottomleft", color = legendColors, opacity=1,labels= legendLabels,title = "|--  Platform  --|")
+    #}
 }
 

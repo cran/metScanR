@@ -7,10 +7,36 @@
 #' When installed, the metScanR package contains only a small (subset) database comprising ~5300 environmental monitoring stations.
 #' This function will update the local version of the database to the most up-to-date version.
 
-#' @keywords environment, data, environmental data, atmosphere, atmopsheric data, climate, in-situ,
-#' temperature, weather, air, water, soils, soil, chemical, air pollution, wind, stream, lake,
-#' reservoir, precipitation, snow, canopy, groundwater, flux, radiation, cloud, river, phenology,
-#' salinity, conductivity, vapor, world, Earth, country, metadata
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
 
 #' @examples
 #' \dontrun{

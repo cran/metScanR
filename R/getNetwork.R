@@ -56,7 +56,36 @@
 
 #' @return A list comprising metadata of environmental monitoring sites from network(s)/platform(s) specified in \code{network}\cr
 
-#' @keywords environment, data, environmental data, atmosphere, atmopsheric data, climate, in-situ, temperature, weather, air, water, soils, soil, chemical, air pollution, wind, stream, lake, reservoir, precipitation, snow, canopy, groundwater, flux, radiation, cloud, river, phenology, salinity, conductivity, vapor, humidity, metadata, ASOS, AWOS, AL USCRN, BOR, COCORAHS, COOP, MPRC, MSNT, NEON, SCAN, SNOW, SNTL, SNTLT, UPPERAIT, USCRN, USGS, USRCRN
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
 
 #' @examples
 #' \dontrun{
@@ -69,7 +98,7 @@
 
 #' @seealso
 #' \link[metScanR]{siteFinder}
-#' \link[metScanR]{mapSiteFinder}
+#' \link[metScanR]{mapResults}
 #' \link[metScanR]{metScanR_DB}
 
 #' @export

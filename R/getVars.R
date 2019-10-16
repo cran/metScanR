@@ -13,7 +13,36 @@
 
 #' @return A list comprising environmental monitoring sites that observe or collect the element(s)/variable(s) specified in \code{vars}\cr
 
-#' @keywords environment, data, environmental data, atmosphere, atmopsheric data, climate, in-situ, temperature, weather, air, water, soils, soil, chemical, air pollution, wind, stream, lake, reservoir, precipitation, snow, canopy, groundwater, flux, radiation, cloud, river, phenology, salinity, conductivity, vapor, humidity, metadata
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
 
 #' @examples
 #' \dontrun{
@@ -26,7 +55,7 @@
 
 #' @seealso
 #' \link[metScanR]{siteFinder}
-#' \link[metScanR]{mapSiteFinder}
+#' \link[metScanR]{mapResults}
 #' \link[metScanR]{metScanR_DB}
 
 #' @export

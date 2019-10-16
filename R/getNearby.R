@@ -13,7 +13,36 @@
 #'
 #' @return A list comprising metadata of environmental monitoring stations located within \code{radius} from the user-entered \code{siteID} or \code{Lat}/\code{Lon} POI.
 
-#' @keywords environment, data, environmental data, atmosphere, atmopsheric data, climate, in-situ, temperature, weather, air, water, soils, soil, chemical, air pollution, wind, stream, lake, reservoir, precipitation, snow, canopy, groundwater, flux, radiation, cloud, river, phenology, salinity, conductivity, vapor, humidity, radius, latitude, longitude, metadata
+#' @concepts environment
+#' @concepts data
+#' @concepts environmental data
+#' @concepts atmosphere
+#' @concepts atmopsheric data
+#' @concepts climate
+#' @concepts in-situ
+#' @concepts weather
+#' @concepts meteorology
+#' @concepts meteorological
+#' @concepts temperature
+#' @concepts weather
+#' @concepts water
+#' @concepts soils
+#' @concepts soil
+#' @concepts air pollution
+#' @concepts wind
+#' @concepts precipitation
+#' @concepts snow
+#' @concepts canopy
+#' @concepts groundwater
+#' @concepts flux
+#' @concepts radiation
+#' @concepts cloud
+#' @concepts river
+#' @concepts phenology
+#' @concepts salinity
+#' @concepts conductivity
+#' @concepts humidity
+#' @concepts metadata
 
 #' @examples
 #' \dontrun{
@@ -24,7 +53,7 @@
 
 #' @seealso
 #' \link[metScanR]{siteFinder}
-#' \link[metScanR]{mapSiteFinder}
+#' \link[metScanR]{mapResults}
 #' \link[metScanR]{metScanR_DB}
 
 #' @export
@@ -39,6 +68,9 @@
 #       Removing NULL initializations, replacing with missing() internally
 ##############################################################################################
 getNearby<-function(siteID,lat,lon,radius,...){
+    if(missing(radius)){
+        stop("Please enter a search radius (km)")
+    }
     metadata<-c(...)
     #if using external of wrapper:
     if(is.null(metadata)){

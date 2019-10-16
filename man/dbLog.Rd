@@ -13,11 +13,3 @@ A simple log file for the version and date of database revisions.
 More information on specific updates to the database can be found at
 \url{https://jaroberti.github.io/metScanR/}.
 }
-\keyword{atmospheric}
-\keyword{data,}
-\keyword{datasets,}
-\keyword{environmental}
-\keyword{metadata,}
-\keyword{meteorology,}
-\keyword{n-grams}
-\keyword{weather,}

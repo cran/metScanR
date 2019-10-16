@@ -30,10 +30,3 @@ among 219 countries/territories and 18 environmental networks.
 Metadata are gathered from a growing number of sources and the database is
 continually updated to reflect the increase of information.\cr
 }
-\keyword{atmospheric}
-\keyword{data,}
-\keyword{datasets,}
-\keyword{environmental}
-\keyword{metadata,}
-\keyword{meteorology,}
-\keyword{weather}

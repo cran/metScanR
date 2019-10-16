@@ -70,6 +70,10 @@
 * Created many new tests in our `testthat` function
 * Created unit tests to compliment `testthat` tests
 
+**2019-10-14 metScanR v1.2.3 (patch)**
+
+* Removed previous leaflet map, which is now obsolete. Changed leaflet map to CartoDB. 
+* Deprecated `mapSiteFinder()` function.  Replaced with `mapResults()`
 
 
 

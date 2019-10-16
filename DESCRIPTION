@@ -1,7 +1,7 @@
 Package: metScanR
 Title: Find, Map, and Gather Environmental Data and Metadata
-Version: 1.2.2
-Date: 2019-02-01
+Version: 1.2.3
+Date: 2019-10-14
 Authors@R: c(person("Josh", "Roberti", email = "jaroberti87@gmail.com", role = c("aut", "cre")),
         person("Cody", "Flagg", role = "aut"),
         person("Lee", "Stanish",  role = "aut"),
@@ -17,10 +17,10 @@ RoxygenNote: 6.1.1
 URL: https://github.com/jaroberti/metScanR
 Suggests: testthat
 NeedsCompilation: no
-Packaged: 2019-02-01 21:54:22 UTC; jroberti
+Packaged: 2019-10-16 16:00:13 UTC; jroberti
 Author: Josh Roberti [aut, cre],
   Cody Flagg [aut],
   Lee Stanish [aut],
   Robert Lee [aut]
 Repository: CRAN
-Date/Publication: 2019-02-02 08:20:03 UTC
+Date/Publication: 2019-10-16 21:30:02 UTC
